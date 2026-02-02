@@ -141,7 +141,7 @@
       border-radius: 30px;
       font-size: 0.9rem;
       cursor: pointer;
-      transition: all 0.3s ease;
+      transition: all 0.4s ease;
     }
 
     .yes {
@@ -152,7 +152,12 @@
       background: rgba(255,255,255,0.85);
       position: fixed;
       z-index: 3;
-      transition: left 0.8s ease-in-out, top 0.8s ease-in-out, transform 0.6s ease;
+      opacity: 1;
+      transition:
+        left 1.2s ease,
+        top 1.2s ease,
+        transform 0.6s ease,
+        opacity 0.8s ease;
     }
 
     .yes:hover {
@@ -187,7 +192,7 @@
       <p>No pressure. Just curiosity.</p>
       <div class="buttons">
         <button class="yes">Yes</button>
-        <button class="no" id="noBtn" style="left: 70%; top: 60%; transform: translate(-50%, -50%);">No</button>
+        <button class="no" id="noBtn" style="left:70%; top:60%; transform:translate(-50%,-50%) scale(1);">No</button>
       </div>
     </div>
   </div>
@@ -204,28 +209,60 @@
       heartBox.appendChild(h);
     }
 
-    /* -------- NO BUTTON ESCAPE (NON-FUNCTIONAL) -------- */
-    const noBtn = document.getElementById('noBtn');
-    noBtn.addEventListener('mouseenter', moveNo);
-    noBtn.addEventListener('click', moveNo);
+    /* -------- GENTLE NO BUTTON -------- */
+const noBtn = document.getElementById('noBtn');
 
-    function moveNo() {
-      const spots = [
-        { x: '10%', y: '85%' },   // footer left
-        { x: '80%', y: '85%' },   // footer right
-        { x: '50%', y: '10%' },   // near navbar
-        { x: '5%', y: '50%' },    // left edge
-        { x: '85%', y: '45%' }    // right edge
-      ];
 
-      const spot = spots[Math.floor(Math.random() * spots.length)];
-      noBtn.style.left = spot.x;
-      noBtn.style.top = spot.y;
-      noBtn.style.transform = `translate(-50%, -50%) scale(${0.9 + Math.random() * 0.3})`;
-    }
-  </script>
+const texts = [
+'No',
+'Are you sure?',
+'It’s okay to stay',
+'Just a moment?',
+'Still no?'
+];
+
+
+let interactionCount = 0;
+
+
+noBtn.addEventListener('mouseenter', gentleMove);
+noBtn.addEventListener('click', gentleMove);
+
+
+function gentleMove() {
+interactionCount++;
+
+
+// soft text change
+noBtn.textContent = texts[interactionCount % texts.length];
+
+
+
+// subtle shrink
+const scale = Math.max(0.75, 1 - interactionCount * 0.05);
+
+
+// gentle fade
+noBtn.style.opacity = Math.max(0.4, 1 - interactionCount * 0.08);
+const spots = [
+{ x: '12%', y: '82%' },
+{ x: '82%', y: '82%' },
+{ x: '50%', y: '12%' },
+{ x: '6%', y: '50%' },
+{ x: '88%', y: '48%' }
+];
+
+
+const spot = spots[Math.floor(Math.random() * spots.length)];
+
+
+noBtn.style.left = spot.x;
+noBtn.style.top = spot.y;
+noBtn.style.transform = `translate(-50%, -50%) scale(${scale})`;
+}
+</script>
+
 
 </body>
 </html>
-
 
