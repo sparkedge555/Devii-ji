@@ -7,11 +7,19 @@
 
   <!-- Fonts -->
   <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Homemade+Apple&display=swap" rel="stylesheet">
+  
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Homemade+Apple&family=Noto+Sans+Devanagari&display=swap" rel="stylesheet">
+
 
   <style>
     /* ---------------- RESET ---------------- */
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    html, body { width: 100%; height: 100%; overflow: hidden; }
+    html, body {
+  width: 100%;
+  min-height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+}
 
     body {
       font-family: 'Playfair Display', serif;
@@ -219,15 +227,19 @@ nav {
 
     /* ---------------- CENTER CARD ---------------- */
     .center {
-      height: 100vh;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      position: relative;
-      z-index: 1;
-    }
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  z-index: 1;
+  
+  
+}
 
    .card {
+  
+   margin-bottom: -40px;
   width: 90%;
   max-width: 380px;
   padding: 2.5rem 2rem;
@@ -335,8 +347,98 @@ nav {
       .card h1 { font-size: 1.4rem; }
       nav { gap: 0.8rem; }
     }
-    
-    
+/* ---------------- POETRY SECTION (FINAL) ---------------- */
+.poetry-section {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1.2rem;
+  padding: 0.2rem 6% 4rem;
+  position: relative;
+  z-index: 1;
+   margin-top: -16px;
+}
+
+
+
+.poetry-box {
+  max-width: 300px;
+  padding: 1.6rem 1.8rem;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(16px);
+  border-radius: 24px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  color: #4b3b36;
+  position: relative;
+
+  border: 2px solid transparent;
+  background-clip: padding-box;
+
+  box-shadow:
+    0 10px 22px rgba(220,150,180,0.18),
+    0 25px 50px rgba(0,0,0,0.08);
+}
+
+.poetry-box::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 24px;
+  padding: 2px;
+  background: linear-gradient(135deg, #e7bfcf, #f1dbe6, #efe6f7);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.poetry-box.left {
+  text-align: left;
+}
+
+.poetry-box.right {
+  text-align: right;
+}
+
+/* MOBILE */
+@media (max-width: 768px) {
+  .poetry-section {
+    flex-direction: column;
+    gap: 1.5rem;
+    padding: 2.5rem 8% 4rem;
+  }
+
+  .poetry-box {
+    max-width: 100%;
+    text-align: center;
+  }
+}
+
+
+/* ---------------- FOOTER LINE ---------------- */
+.footer-line {
+  position: fixed;
+  bottom: 14px;
+  width: 100%;
+  text-align: center;
+  font-family: 'Homemade Apple', cursive;
+  font-size: 0.85rem;
+  color: #7a5a5a;
+  pointer-events: none;
+  z-index: 2;
+}
+
+/* MOBILE TUNING */
+@media (max-width: 480px) {
+  .highlight-box { max-width: 85%; font-size: 0.9rem; padding: 0.8rem 1rem; }
+  .footer-line { font-size: 0.75rem; bottom: 10px; }
+}
+
     
     /* ---------------- POP-UP CARDS ---------------- */
 .popup-card {
@@ -541,7 +643,36 @@ nav {
         <button class="no" id="noBtn" style="left:70%; top:60%; transform:translate(-50%,-50%) scale(1);">No</button>
       </div>
     </div>
+
+
   </div>
+
+
+<!-- POETRY SECTION -->
+<section class="poetry-section">
+
+  <div class="poetry-box left">
+    <p>
+      सुना है लोग उसे आँख भर के देखते हैं,<br>
+      सो उसके शहर में कुछ दिन ठहर के देखते हैं।
+    </p>
+  </div>
+
+  <div class="poetry-box right">
+    <p>
+      माना कि तेरी दीद के क़ाबिल नहीं हूँ मैं,<br>
+      तू मेरा शौक़ देख, मिरा इंतिज़ार देख।
+    </p>
+  </div>
+
+</section>
+
+
+<!-- Footer line -->
+<footer class="footer-line">
+  <p>Moments linger, even when the world moves on…</p>
+</footer>
+
 
 
 <!-- POP-UP CARDS -->
@@ -553,6 +684,10 @@ nav {
     <p class="card-message">Message goes here...</p>
   </div>
 </div>
+
+
+
+
 
   <script>
     /* -------- HEART GENERATOR -------- */
@@ -692,6 +827,21 @@ for (let i = 0; i < 25; i++) {
   f.style.fontSize = (14 + Math.random() * 12) + 'px';
   flowerBox.appendChild(f);
 }
+
+
+
+
+document.querySelectorAll('.poetry-box').forEach(box => {
+  box.addEventListener('touchstart', () => {
+    box.style.boxShadow =
+      '0 0 30px rgba(230,180,200,0.4), 0 25px 50px rgba(0,0,0,0.1)';
+  });
+
+  box.addEventListener('touchend', () => {
+    box.style.boxShadow =
+      '0 10px 22px rgba(220,150,180,0.18), 0 25px 50px rgba(0,0,0,0.08)';
+  });
+});
 
 </script>
 
