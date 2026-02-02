@@ -89,7 +89,8 @@
       box-shadow: 0 0 15px rgba(200,150,180,0.4);
     }
 
-    /* ---------------- NAV HINT ---------------- */
+
+/* ---------------- NAV HINT ---------------- */
 .nav-hint {
   position: fixed;
   top: 72px;
@@ -136,7 +137,7 @@
 }
 
 
-    /* ---------------- REALISTIC CREEPER VINES ---------------- */
+/* ---------------- REALISTIC CREEPER VINES ---------------- */
 nav {
   position: fixed;
   overflow: visible;
@@ -215,6 +216,7 @@ nav {
 /* side wrapping vines */
 .v1 { left: -4px; }
 .v4 { right: -4px; left: auto; }
+
     /* ---------------- CENTER CARD ---------------- */
     .center {
       height: 100vh;
@@ -225,17 +227,54 @@ nav {
       z-index: 1;
     }
 
-    .card {
-      width: 90%;
-      max-width: 380px;
-      padding: 2.5rem 2rem;
-      background: rgba(255,255,255,0.55);
-      backdrop-filter: blur(14px);
-      border-radius: 28px;
-      text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
-      animation: fadeUp 2s ease forwards;
-    }
+   .card {
+  width: 90%;
+  max-width: 380px;
+  padding: 2.5rem 2rem;
+  background: rgba(255,255,255,0.6); /* slightly more opaque for contrast */
+  backdrop-filter: blur(16px);
+  border-radius: 28px;
+  text-align: center;
+  box-shadow:
+    0 8px 20px rgba(220,150,180,0.15), /* soft outer glow */
+    0 25px 50px rgba(0,0,0,0.1); /* depth shadow */
+  animation: fadeUp 2s ease forwards;
+  position: relative;
+  overflow: hidden;
+
+  /* PREMIUM GRADIENT BORDER */
+  border: 3px solid transparent;
+  background-clip: padding-box; /* ensures inner content not affected */
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 28px;
+  padding: 3px;
+  background: linear-gradient(135deg, #f3c6d6, #e9d2e9, #f8e6f4); /* elegant gradient */
+  -webkit-mask: 
+    linear-gradient(#fff 0 0) content-box, 
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+
+/* Tiny roses at card corners */
+.card .corner-rose {
+  position: absolute;
+  font-size: 1.2rem;
+  opacity: 0.6;
+}
+
+.card .corner-rose.top-left { top: 30px; left: 30px; }
+.card .corner-rose.top-right { top: 6px; right: 6px; }
+.card .corner-rose.bottom-left { bottom: 6px; left: 6px; }
+.card .corner-rose.bottom-right { bottom: 6px; right: 6px; }
+
 
     @keyframes fadeUp {
       from { opacity: 0; transform: translateY(15px); }
@@ -296,14 +335,164 @@ nav {
       .card h1 { font-size: 1.4rem; }
       nav { gap: 0.8rem; }
     }
+    
+    
+    
+    /* ---------------- POP-UP CARDS ---------------- */
+.popup-card {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  backdrop-filter: blur(12px);
+  background: rgba(255, 240, 245, 0.7);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.5s ease;
+  z-index: 10;
+}
+/* current active card */
+.popup-card.active {
+  opacity: 1;
+  pointer-events: all;
+}
+
+/* add closing animation class */
+.popup-card.closing .card-content {
+  animation: scaleDown 0.4s forwards;
+}
+
+@keyframes scaleDown {
+  to {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+}
+
+}
+
+.card-content {
+  position: relative;
+  background: rgba(255,255,255,0.9);
+  backdrop-filter: blur(14px);
+  padding: 2rem 1.8rem;
+  border-radius: 28px;
+  max-width: 340px;
+  width: 85%;
+  text-align: center;
+  box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+  transform: scale(0.8);
+  animation: scaleUp 0.5s forwards;
+}
+
+@keyframes scaleUp {
+  to { transform: scale(1); }
+}
+
+.card-content h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.5rem;
+  margin-bottom: 0.8rem;
+}
+
+.card-content p {
+  font-family: 'Homemade Apple', cursive;
+  font-size: 0.95rem;
+  color: #5a4a45;
+  margin-bottom: 1.5rem;
+}
+
+.card-rose {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+  animation: rosePulse 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes rosePulse {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.15); }
+}
+
+.close-btn {
+  position: absolute;
+  top: 12px;
+  right: 12px;
+  background: rgba(255,255,255,0.8);
+  border: none;
+  font-size: 1.2rem;
+  padding: 0.3rem 0.6rem;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.close-btn:hover {
+  background: rgba(255,200,200,0.9);
+  transform: scale(1.1);
+}
+
+/* Mobile */
+@media (max-width: 480px) {
+  .card-content {
+    padding: 1.6rem 1.2rem;
+  }
+  .card-content h2 { font-size: 1.3rem; }
+  .card-content p { font-size: 0.9rem; }
+  .card-rose { font-size: 1.7rem; }
+}
+
+
+
+/* ---------------- FALLING FLOWERS ---------------- */
+.falling-flowers {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.flower {
+  position: absolute;
+  font-size: 1.2rem;
+  opacity: 0.8;
+  transform: rotate(0deg);
+  animation: fall 8s linear infinite;
+}
+
+@keyframes fall {
+  0% {
+    transform: translateY(-10vh) rotate(0deg);
+    opacity: 0;
+  }
+  20% {
+    opacity: 0.7;
+  }
+  100% {
+    transform: translateY(110vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Mobile tuning */
+@media (max-width: 480px) {
+  .flower {
+    font-size: 0.9rem;
+  }
+}
+
+
   </style>
 </head>
 <body>
 
   <!-- HEARTS -->
   <div class="hearts" id="hearts"></div>
+  <!-- FALLING FLOWERS -->
+<div class="falling-flowers" id="fallingFlowers"></div>
 
- <!-- NAV -->
+
+  <!-- NAV -->
   <nav>
   <!-- CREEPER VINES -->
 <div class="vines">
@@ -320,16 +509,31 @@ nav {
 
 
   </nav>
-
+  
   <!-- NAV HINT -->
 <div class="nav-hint">
   <div class="arrow">↗</div>
   <div class="hint-text">There’s something here ✨</div>
 </div>
 
+
   <!-- CENTER CARD -->
+ 
+
+
   <div class="center">
     <div class="card">
+    
+    
+     <div class="corner-rose top-left">😍</div>
+<div class="corner-rose top-right"></div>
+<div class="corner-rose bottom-left"></div>
+<div class="corner-rose bottom-right"></div>
+
+
+
+
+
       <h1>Will you stay for a moment?</h1>
       <p>No pressure. Just curiosity.</p>
       <div class="buttons">
@@ -338,6 +542,17 @@ nav {
       </div>
     </div>
   </div>
+
+
+<!-- POP-UP CARDS -->
+<div class="popup-card" id="popupCard">
+  <div class="card-content">
+    <button class="close-btn" id="closePopup">✖</button>
+    <div class="card-rose">🌹</div>
+    <h2 class="card-title">Title Here</h2>
+    <p class="card-message">Message goes here...</p>
+  </div>
+</div>
 
   <script>
     /* -------- HEART GENERATOR -------- */
@@ -404,15 +619,82 @@ noBtn.style.transform = `translate(-50%, -50%) scale(${scale})`;
 }
 
 
-    // auto hide nav hint after a few seconds
+// auto hide nav hint after a few seconds
 const navHint = document.querySelector('.nav-hint');
 setTimeout(() => {
   navHint.style.opacity = '0';
   navHint.style.transition = 'opacity 1.2s ease';
 }, 7000);
+
+
+
+// ---------------- NAV ICON POPUP CARDS ----------------
+const navItems = document.querySelectorAll('.nav-item');
+const popupCard = document.getElementById('popupCard');
+const closePopup = document.getElementById('closePopup');
+
+const cardData = [
+  {
+    title: "A Moment of Roses",
+    message: "Every rose reminds me of our little stories and laughter.",
+    rose: "🌹"
+  },
+  {
+    title: "Our Story",
+    message: "Pages of memories we wrote together, safe in my heart.",
+    rose: "🌹"
+  },
+  {
+    title: "Pure Love",
+    message: "Even the tiniest moments with you feel infinite.",
+    rose: "🌹"
+  },
+  {
+    title: "Secret Message",
+    message: "This little note is just for you, my love.",
+    rose: "🌹"
+  }
+];
+
+// Attach click to each nav item
+navItems.forEach((item, idx) => {
+  item.addEventListener('click', () => {
+    const data = cardData[idx];
+    popupCard.querySelector('.card-title').textContent = data.title;
+    popupCard.querySelector('.card-message').textContent = data.message;
+    popupCard.querySelector('.card-rose').textContent = data.rose;
+    popupCard.classList.add('active');
+  });
+});
+
+// Close popup
+closePopup.addEventListener('click', () => {
+  // add closing class
+  popupCard.classList.add('closing');
+
+  // remove active after animation ends
+  setTimeout(() => {
+    popupCard.classList.remove('active', 'closing');
+  }, 400); // match CSS animation duration
+});
+
+
+/* -------- FALLING FLOWERS GENERATOR -------- */
+const flowerBox = document.getElementById('fallingFlowers');
+const flowerTypes = ['🌸','🌺','🌼','🌷','💮']; // different flowers
+
+for (let i = 0; i < 25; i++) {
+  const f = document.createElement('div');
+  f.className = 'flower';
+  f.textContent = flowerTypes[Math.floor(Math.random() * flowerTypes.length)];
+  f.style.left = Math.random() * 100 + '%';
+  f.style.animationDelay = Math.random() * 10 + 's';
+  f.style.fontSize = (14 + Math.random() * 12) + 'px';
+  flowerBox.appendChild(f);
+}
+
 </script>
 
 
 </body>
 </html>
-
