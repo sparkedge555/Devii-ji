@@ -293,6 +293,31 @@ nav {
       to { opacity: 1; transform: translateY(0); }
     }
 
+
+/* ---------- TENOR GIF INSIDE CARD ---------- */
+.gif-wrap {
+  width: 120px;
+  max-width: 40%;
+  margin: 0 auto 0.8rem;
+  border-radius: 18px;
+  overflow: hidden;
+  filter: drop-shadow(0 6px 14px rgba(0,0,0,0.12));
+}
+
+.gif-wrap iframe {
+  border-radius: 18px;
+}
+
+
+
+
+
+
+
+
+
+    
+
     .card h1 {
       font-size: 1.6rem;
       margin-bottom: 1rem;
@@ -632,6 +657,22 @@ nav {
 <div class="corner-rose bottom-left"></div>
 <div class="corner-rose bottom-right"></div>
 
+<!-- TENOR EMBED -->
+<div class="gif-wrap">
+  <div class="tenor-gif-embed"
+       data-postid="8391481743589548760"
+       data-share-method="host"
+       data-aspect-ratio="1"
+       data-width="100%">
+    <a href="https://tenor.com/view/hold-dudu-shake-hand-gif-8391481743589548760">
+      Hold Dudu Shake Hand Sticker
+    </a>
+    from
+    <a href="https://tenor.com/search/hold+dudu-stickers">
+      Hold Dudu Stickers
+    </a>
+  </div>
+</div>
 
 
 
@@ -845,6 +886,7 @@ document.querySelectorAll('.poetry-box').forEach(box => {
 
 </script>
 
+<script async src="https://tenor.com/embed.js"></script>
 
 </body>
 </html>
