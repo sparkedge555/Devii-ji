@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiet Playful Space</title>
+
+  <!-- Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Homemade+Apple&display=swap" rel="stylesheet">
+
+  <style>
+    /* ---------------- RESET ---------------- */
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    html, body { width: 100%; height: 100%; overflow: hidden; }
+
+    body {
+      font-family: 'Playfair Display', serif;
+      background: linear-gradient(120deg, #f6efe7, #f3e6ef, #efe9f7);
+      color: #3a2f2a;
+    }
+
+    /* ---------------- MOVING HEARTS BACKGROUND ---------------- */
+    .hearts {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .heart {
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: rgba(220, 120, 160, 0.75);
+      transform: rotate(45deg);
+      animation: floatUp 10s linear infinite;
+    }
+
+    .heart::before,
+    .heart::after {
+      content: "";
+      position: absolute;
+      width: 14px;
+      height: 14px;
+      background: inherit;
+      border-radius: 50%;
+    }
+
+    .heart::before { top: -7px; left: 0; }
+    .heart::after { left: -7px; top: 0; }
+
+    @keyframes floatUp {
+      0% { transform: translateY(100vh) rotate(45deg); opacity: 0; }
+      20% { opacity: 0.6; }
+      100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
+    }
+
+    /* ---------------- NAV BAR ---------------- */
+    nav {
+      position: fixed;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 1.2rem;
+      padding: 0.6rem 1.4rem;
+      background: rgba(255,255,255,0.45);
+      backdrop-filter: blur(10px);
+      border-radius: 40px;
+      z-index: 2;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.08);
+    }
+
+    .nav-item {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.7);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      cursor: pointer;
+      transition: all 0.4s ease;
+    }
+
+    .nav-item:hover {
+      transform: translateY(-4px) scale(1.1);
+      box-shadow: 0 0 15px rgba(200,150,180,0.4);
+    }
+
+    /* ---------------- CENTER CARD ---------------- */
+    .center {
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      position: relative;
+      z-index: 1;
+    }
+
+    .card {
+      width: 90%;
+      max-width: 380px;
+      padding: 2.5rem 2rem;
+      background: rgba(255,255,255,0.55);
+      backdrop-filter: blur(14px);
+      border-radius: 28px;
+      text-align: center;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.12);
+      animation: fadeUp 2s ease forwards;
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .card h1 {
+      font-size: 1.6rem;
+      margin-bottom: 1rem;
+    }
+
+    .card p {
+      font-family: 'Homemade Apple', cursive;
+      font-size: 0.95rem;
+      margin-bottom: 2rem;
+      color: #5a4a45;
+    }
+
+    .buttons {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      position: relative;
+    }
+
+    button {
+      border: none;
+      padding: 0.7rem 1.8rem;
+      border-radius: 30px;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .yes {
+      background: linear-gradient(120deg, #e6c1d0, #f1dbe6);
+    }
+
+    .no {
+      background: rgba(255,255,255,0.85);
+      position: fixed;
+      z-index: 3;
+      transition: left 0.8s ease-in-out, top 0.8s ease-in-out, transform 0.6s ease;
+    }
+
+    .yes:hover {
+      box-shadow: 0 0 20px rgba(220,150,180,0.6);
+      transform: scale(1.05);
+    }
+
+    /* ---------------- MOBILE ---------------- */
+    @media (max-width: 480px) {
+      .card h1 { font-size: 1.4rem; }
+      nav { gap: 0.8rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEARTS -->
+  <div class="hearts" id="hearts"></div>
+
+  <!-- NAV -->
+  <nav>
+    <div class="nav-item">🏠</div>
+    <div class="nav-item">📖</div>
+    <div class="nav-item">🎨</div>
+    <div class="nav-item">💌</div>
+  </nav>
+
+  <!-- CENTER CARD -->
+  <div class="center">
+    <div class="card">
+      <h1>Will you stay for a moment?</h1>
+      <p>No pressure. Just curiosity.</p>
+      <div class="buttons">
+        <button class="yes">Yes</button>
+        <button class="no" id="noBtn" style="left: 70%; top: 60%; transform: translate(-50%, -50%);">No</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    /* -------- HEART GENERATOR -------- */
+    const heartBox = document.getElementById('hearts');
+    for (let i = 0; i < 60; i++) {
+      const h = document.createElement('div');
+      h.className = 'heart';
+      h.style.left = Math.random() * 100 + '%';
+      h.style.animationDelay = Math.random() * 12 + 's';
+      h.style.opacity = Math.random() * 0.6 + 0.2;
+      heartBox.appendChild(h);
+    }
+
+    /* -------- NO BUTTON ESCAPE (NON-FUNCTIONAL) -------- */
+    const noBtn = document.getElementById('noBtn');
+    noBtn.addEventListener('mouseenter', moveNo);
+    noBtn.addEventListener('click', moveNo);
+
+    function moveNo() {
+      const spots = [
+        { x: '10%', y: '85%' },   // footer left
+        { x: '80%', y: '85%' },   // footer right
+        { x: '50%', y: '10%' },   // near navbar
+        { x: '5%', y: '50%' },    // left edge
+        { x: '85%', y: '45%' }    // right edge
+      ];
+
+      const spot = spots[Math.floor(Math.random() * spots.length)];
+      noBtn.style.left = spot.x;
+      noBtn.style.top = spot.y;
+      noBtn.style.transform = `translate(-50%, -50%) scale(${0.9 + Math.random() * 0.3})`;
+    }
+  </script>
+
+</body>
+</html>
+
+
