@@ -135,6 +135,86 @@
   }
 }
 
+
+    /* ---------------- REALISTIC CREEPER VINES ---------------- */
+nav {
+  position: fixed;
+  overflow: visible;
+}
+
+/* container */
+.vines {
+  position: absolute;
+  inset: -20px;
+  pointer-events: none;
+}
+
+/* main vine stem */
+.vine {
+  position: absolute;
+  top: -18px;
+  width: 2px;
+  height: 70px;
+  background: linear-gradient(
+    to bottom,
+    #6b8f5e,
+    #8fbf7a,
+    #6b8f5e
+  );
+  border-radius: 2px;
+  transform-origin: top center;
+  animation: windSway 6s ease-in-out infinite;
+}
+
+/* leaf nodes */
+.vine::before,
+.vine::after {
+  content: '🍃';
+  position: absolute;
+  font-size: 0.9rem;
+  opacity: 0.85;
+}
+
+.vine::before {
+  top: 18px;
+  left: -8px;
+}
+
+.vine::after {
+  top: 40px;
+  left: 4px;
+}
+
+/* vine positions around nav */
+.v1 { left: 8%;  animation-delay: 0s; }
+.v2 { left: 32%; animation-delay: 1.5s; }
+.v3 { left: 62%; animation-delay: 3s; }
+.v4 { left: 86%; animation-delay: 4.5s; }
+
+/* wind motion */
+@keyframes windSway {
+  0%   { transform: rotate(0deg); }
+  25%  { transform: rotate(2deg); }
+  50%  { transform: rotate(-2deg); }
+  75%  { transform: rotate(1deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* mobile tuning */
+@media (max-width: 480px) {
+  .vine {
+    height: 55px;
+  }
+  .vine::before,
+  .vine::after {
+    font-size: 0.8rem;
+  }
+}
+
+
+/* side wrapping vines */
+.v1 { left: -4px; }
+.v4 { right: -4px; left: auto; }
     /* ---------------- CENTER CARD ---------------- */
     .center {
       height: 100vh;
@@ -223,12 +303,22 @@
   <!-- HEARTS -->
   <div class="hearts" id="hearts"></div>
 
-  <!-- NAV -->
+ <!-- NAV -->
   <nav>
-    <div class="nav-item">🏠</div>
-    <div class="nav-item">📖</div>
-    <div class="nav-item">🎨</div>
-    <div class="nav-item">💌</div>
+  <!-- CREEPER VINES -->
+<div class="vines">
+  <span class="vine v1"></span>
+  <span class="vine v2"></span>
+  <span class="vine v3"></span>
+  <span class="vine v4"></span>
+</div>
+
+ <div class="nav-item">🌹</div>
+<div class="nav-item">📜</div>
+<div class="nav-item">💞</div>
+<div class="nav-item">💌</div>
+
+
   </nav>
 
   <!-- NAV HINT -->
