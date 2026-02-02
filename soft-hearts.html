@@ -89,6 +89,52 @@
       box-shadow: 0 0 15px rgba(200,150,180,0.4);
     }
 
+    /* ---------------- NAV HINT ---------------- */
+.nav-hint {
+  position: fixed;
+  top: 72px;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+  z-index: 3;
+  pointer-events: none;
+  animation: hintFloat 3s ease-in-out infinite;
+}
+
+.nav-hint .arrow {
+  font-family: 'Homemade Apple', cursive;
+  font-size: 1.6rem;
+  color: #8a6f7a;
+  line-height: 1;
+}
+
+.nav-hint .hint-text {
+  font-family: 'Homemade Apple', cursive;
+  font-size: 0.8rem;
+  color: #6f5a55;
+  margin-top: 2px;
+}
+
+/* gentle float */
+@keyframes hintFloat {
+  0%   { transform: translate(-50%, 0); }
+  50%  { transform: translate(-50%, -6px); }
+  100% { transform: translate(-50%, 0); }
+}
+
+/* mobile tuning */
+@media (max-width: 480px) {
+  .nav-hint {
+    top: 64px;
+  }
+  .nav-hint .arrow {
+    font-size: 1.4rem;
+  }
+  .nav-hint .hint-text {
+    font-size: 0.75rem;
+  }
+}
+
     /* ---------------- CENTER CARD ---------------- */
     .center {
       height: 100vh;
@@ -185,6 +231,12 @@
     <div class="nav-item">💌</div>
   </nav>
 
+  <!-- NAV HINT -->
+<div class="nav-hint">
+  <div class="arrow">↗</div>
+  <div class="hint-text">There’s something here ✨</div>
+</div>
+
   <!-- CENTER CARD -->
   <div class="center">
     <div class="card">
@@ -260,6 +312,14 @@ noBtn.style.left = spot.x;
 noBtn.style.top = spot.y;
 noBtn.style.transform = `translate(-50%, -50%) scale(${scale})`;
 }
+
+
+    // auto hide nav hint after a few seconds
+const navHint = document.querySelector('.nav-hint');
+setTimeout(() => {
+  navHint.style.opacity = '0';
+  navHint.style.transition = 'opacity 1.2s ease';
+}, 7000);
 </script>
 
 
