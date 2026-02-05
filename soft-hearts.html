@@ -23,7 +23,13 @@
 
     body {
       font-family: 'Playfair Display', serif;
-      background: linear-gradient(120deg, #f6efe7, #f3e6ef, #efe9f7);
+      background: linear-gradient(
+  120deg,
+  #f6efe7 0%,
+  #efe9f7 50%,
+  #f3c6d6 100%
+);
+
       color: #3a2f2a;
     }
 
@@ -62,6 +68,43 @@
       20% { opacity: 0.6; }
       100% { transform: translateY(-10vh) rotate(45deg); opacity: 0; }
     }
+    
+    
+    
+    
+    
+    .falling-flowers { display: none; }
+
+    
+    
+    
+    
+    
+    
+    .dust {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.dust span {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  background: rgba(255,255,255,0.4);
+  border-radius: 50%;
+  animation: dustFloat 12s linear infinite;
+}
+
+@keyframes dustFloat {
+  0% { transform: translateY(100vh); opacity: 0; }
+  20% { opacity: 0.5; }
+  100% { transform: translateY(-10vh); opacity: 0; }
+}
+
+
+
 
     /* ---------------- NAV BAR ---------------- */
     nav {
@@ -250,7 +293,9 @@ nav {
   box-shadow:
     0 8px 20px rgba(220,150,180,0.15), /* soft outer glow */
     0 25px 50px rgba(0,0,0,0.1); /* depth shadow */
+  opacity: 0;
   animation: fadeUp 2s ease forwards;
+  animation-delay: 1.2s;
   position: relative;
   overflow: hidden;
 
@@ -349,6 +394,48 @@ nav {
     .yes {
       background: linear-gradient(120deg, #e6c1d0, #f1dbe6);
     }
+    
+    
+    .yes {
+  animation: breathe 3.5s ease-in-out infinite;
+}
+
+@keyframes breathe {
+  0% {
+    box-shadow: 0 0 0 rgba(230,207,167,0.0);
+    transform: scale(1);
+  }
+  50% {
+    box-shadow: 0 0 18px rgba(230,207,167,0.35);
+    transform: scale(1.03);
+  }
+  100% {
+    box-shadow: 0 0 0 rgba(230,207,167,0.0);
+    transform: scale(1);
+  }
+}
+
+
+
+.yes.clicked {
+  animation: yesClickGlow 0.8s ease forwards;
+}
+
+@keyframes yesClickGlow {
+  0% {
+    transform: scale(1);
+    box-shadow: 0 0 0 rgba(230,207,167,0.0);
+  }
+  40% {
+    transform: scale(1.08);
+    box-shadow: 0 0 28px rgba(230,207,167,0.45);
+  }
+  100% {
+    transform: scale(1.03);
+    box-shadow: 0 0 18px rgba(230,207,167,0.35);
+  }
+}
+
 
     .no {
       background: rgba(255,255,255,0.85);
@@ -362,7 +449,7 @@ nav {
         opacity 0.8s ease;
     }
 
-    .yes:hover {
+    .yes::after:hover {
       box-shadow: 0 0 20px rgba(220,150,180,0.6);
       transform: scale(1.05);
     }
@@ -612,6 +699,7 @@ nav {
   </style>
 </head>
 <body>
+<div class="dust" id="dust"></div>
 
   <!-- HEARTS -->
   <div class="hearts" id="hearts"></div>
@@ -677,7 +765,7 @@ nav {
 
 
 
-      <h1>Will you stay for a moment?</h1>
+      <h1 id="typingText"></h1>
       <p>No pressure. Just curiosity.</p>
       <div class="buttons">
         <button class="yes">Yes</button>
@@ -883,6 +971,45 @@ document.querySelectorAll('.poetry-box').forEach(box => {
       '0 10px 22px rgba(220,150,180,0.18), 0 25px 50px rgba(0,0,0,0.08)';
   });
 });
+
+
+const text = "Will you stay for a moment?";
+const typingTarget = document.getElementById("typingText");
+let i = 0;
+
+setTimeout(() => {
+  const typingInterval = setInterval(() => {
+    typingTarget.textContent += text[i];
+    i++;
+    if (i >= text.length) clearInterval(typingInterval);
+  }, 90); // slow, intimate typing
+}, 1400);
+
+
+const dustBox = document.getElementById('dust');
+for (let i = 0; i < 40; i++) {
+  const d = document.createElement('span');
+  d.style.left = Math.random() * 100 + '%';
+  d.style.animationDelay = Math.random() * 10 + 's';
+  dustBox.appendChild(d);
+}
+
+
+document.querySelector('.yes').addEventListener('click', () => {
+  flowerBox.style.display = 'block';
+});
+
+const yesBtn = document.querySelector('.yes');
+
+yesBtn.addEventListener('click', () => {
+  yesBtn.classList.remove('clicked'); // reset animation
+  void yesBtn.offsetWidth;           // force reflow
+  yesBtn.classList.add('clicked');   // trigger animation
+
+  yesBtn.textContent = "Thank you ✨";
+});
+
+
 
 </script>
 
