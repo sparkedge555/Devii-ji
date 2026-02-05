@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>How I See You</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Homemade+Apple&display=swap" rel="stylesheet">
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: linear-gradient(120deg, #f3c6d6, #f6efe7);
+  font-family: 'Playfair Display', serif;
+  color: #3a2f2a;
+  overflow-x: hidden;
+}
+
+.page {
+  opacity: 0;
+  animation: fadeIn 1.8s ease forwards;
+}
+
+@keyframes fadeIn { to { opacity: 1; } }
+
+/* back button */
+.back-btn {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  background: rgba(255,255,255,0.4);
+  color: #6f5a55;
+  font-size: 1.2rem;
+  opacity: 0.55;
+  cursor: pointer;
+  z-index: 10;
+  transition: all 0.4s ease;
+}
+.back-btn:hover {
+  opacity: 0.9;
+  transform: translateX(-4px);
+}
+
+/* layout */
+.gallery {
+  padding: 14vh 8% 18vh;
+  display: flex;
+  flex-direction: column;
+  gap: 4rem;
+}
+
+.line {
+  font-size: 1.2rem;
+  line-height: 1.8;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 1.4s ease;
+}
+.line.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.glow {
+  font-family: 'Homemade Apple', cursive;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+.glow:hover {
+  text-shadow: 0 0 12px rgba(230,207,167,0.6);
+}
+
+/* SAFE WRAPPER */
+.gif-wrapper {
+  max-width: 340px;
+  margin: 40px auto;
+  border-radius: 24px;
+  align: center;
+
+  /* animation-safe */
+  opacity: 1;                 /* IMPORTANT */
+  transform: none;            /* IMPORTANT */
+  overflow: visible;          /* IMPORTANT */
+}
+
+/* optional gentle motion */
+.gif-wrapper.float {
+  animation: float 6s ease-in-out infinite;
+}
+
+@keyframes float {
+  0% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0); }
+}
+
+/* NEVER TOUCH THIS */
+.tenor-gif-embed iframe {
+  max-width: 100% !important;
+  border-radius: 24px;
+}
+
+/* share boxes */
+.share-box {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 1.4rem;
+  background: rgba(255,255,255,0.6);
+  backdrop-filter: blur(12px);
+  border-radius: 22px;
+  font-family: 'Homemade Apple', cursive;
+  text-align: center;
+  opacity: 0;
+  transform: translateY(18px);
+  transition: all 1.6s ease;
+}
+.share-box.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* micro note */
+#note {
+  position: fixed;
+  bottom: 14%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(255,255,255,0.85);
+  padding: 1rem 1.4rem;
+  border-radius: 20px;
+  font-family: 'Homemade Apple', cursive;
+  font-size: 0.9rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.6s ease;
+}
+
+.emotion-header {
+  text-align: center;
+  padding: 5vh 8% 2vh;
+}
+
+.emotion-header h1 {
+  font-family: 'Homemade Apple', cursive;
+  font-size: 2.2rem;
+  font-weight: normal;
+  margin-bottom: 1rem;
+}
+
+.emotion-header p {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.05rem;
+  opacity: 0.75;
+  line-height: 1.5;
+}
+
+
+
+.cta-wrap {
+  text-align: center;
+  margin: 10vh 0;
+}
+
+.step-btn {
+  font-family: 'Playfair Display';
+  padding: 18px 48px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #e9a6b8, #f4d3a1);
+  color: #3a2f2a;
+  cursor: pointer;
+  box-shadow: 0 12px 30px rgba(0,0,0,0.18);
+  transition: all 0.45s ease;
+}
+
+.step-btn:hover {
+  transform: translateY(-4px) scale(1.06);
+  box-shadow: 0 18px 36px rgba(0,0,0,0.25);
+}
+
+.step-btn:active {
+  transform: scale(0.97);
+}
+
+.step-btn.clicked {
+  animation: pulse 0.5s ease;
+}
+
+@keyframes pulse {
+  50% { transform: scale(1.08); }
+}
+
+
+
+.heartbeat-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+  font-size: 1.25rem;
+  padding: 20px 54px;
+  border-radius: 999px;
+  border: none;
+  background: linear-gradient(135deg, #f3b7c8, #f6d7a7);
+  color: #3a2f2a;
+  cursor: pointer;
+  box-shadow: 0 14px 36px rgba(0,0,0,0.2);
+  animation: heartbeat 2.4s ease-in-out infinite;
+}
+
+.heartbeat-btn .heart {
+  font-size: 1.6rem;
+  animation: heartBeatIcon 1.2s infinite;
+}
+
+@keyframes heartbeat {
+  0%, 100% { transform: scale(1); }
+  20% { transform: scale(1.05); }
+  40% { transform: scale(0.98); }
+  60% { transform: scale(1.06); }
+}
+
+@keyframes heartBeatIcon {
+  50% { transform: scale(1.25); }
+}
+
+
+.ambient-layer {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(circle at 20% 30%, rgba(255,215,200,0.25), transparent 40%),
+    radial-gradient(circle at 80% 70%, rgba(220,180,255,0.2), transparent 45%);
+  animation: ambientMove 12s ease-in-out infinite alternate;
+  z-index: 0;
+}
+
+@keyframes ambientMove {
+  from { filter: blur(14px); }
+  to { filter: blur(22px); }
+}
+
+
+.light-particles span {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  background: rgba(255,255,255,0.6);
+  border-radius: 50%;
+  animation: floatUp 10s linear infinite;
+}
+
+@keyframes floatUp {
+  from { transform: translateY(110vh); opacity: 0; }
+  20% { opacity: 0.7; }
+  to { transform: translateY(-10vh); opacity: 0; }
+}
+
+
+.rose {
+  filter: blur(0.2px);
+  opacity: 0.82;
+}
+
+
+.flower-frame {
+  position: relative;
+  width: 100%;
+  height: 360px;
+  margin: 8vh 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* MAIN FLOWER */
+
+.main-flower {
+  position: absolute;
+  left: 50%;
+  top: 350%;
+  bottom: 100%;
+
+  transform: translateX(-50%);
+
+  width: 240px;
+  z-index: 3;
+  animation: floatMid 6s ease-in-out infinite;
+}
+
+
+
+/* SIDE ROSES */
+.rose {
+  position: absolute;
+  width: 140px;
+  opacity: 0.9;
+  z-index: 2;
+  animation: sway 7s ease-in-out infinite;
+}
+
+.rose.left {
+  left: 10%;
+  top: 50%;
+  transform: translateY(-50%) rotate(-8deg);
+}
+
+.rose.right {
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%) rotate(8deg);
+}
+
+/* ANIMATIONS */
+@keyframes sway {
+  0%, 100% {
+    transform: translateY(-50%) rotate(-6deg);
+  }
+  50% {
+    transform: translateY(-62%) rotate(0deg);
+  }
+}
+
+@keyframes floatMid {
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+/* FORCE TENOR TO OBEY SIZE */
+.tenor-gif-embed,
+.tenor-gif-embed iframe {
+  width: 100% !important;
+  border-radius: 22px;
+}
+
+</style>
+</head>
+
+<body>
+
+<button class="back-btn" onclick="history.back()">←</button>
+<div class="ambient-layer"></div>
+<div class="light-particles"></div>
+
+
+<section class="emotion-header">
+  <h1>How I See You</h1>
+  <p>Not the way people stare — but the way moments pause near you.</p>
+</section>
+
+
+<div class="cta-wrap">
+  <button class="step-btn">Take a Step Closer ✨</button>
+</div>
+
+
+
+<div class="page">
+<section class="gallery">
+
+  <div class="line">
+    I notice the way <span class="glow" data-note="You seem to belong to your thoughts.">you look away</span>,
+    as if the world speaks gently to you.
+  </div>
+
+  <!-- ✅ TENOR GIF (FIXED STRUCTURE) -->
+  <div class="tenor-gif-embed"
+  data-postid="12343500"
+  data-share-method="host"
+  data-aspect-ratio="1.32979"
+  data-width="300px">
+  <a href="https://tenor.com/view/anime-moody-night-bubblegumcrisis-drive-gif-12343500">
+    Anime Moody GIF
+  </a>
+</div>
+
+<script async src="https://tenor.com/embed.js"></script>
+
+
+  <div class="line">
+    The <span class="glow" data-note="Light doesn’t chase you. It recognizes you.">light finds your hair</span>
+    before you notice it.
+  </div>
+
+  <div class="line">
+    There is a pause in your eyes —
+    not hesitation, but <span class="glow" data-note="Some people are felt before they are known.">recognition</span>.
+  </div>
+
+
+
+<div class="cta-wrap">
+  <button class="step-btn">Take a Step Closer ✨</button>
+</div>
+
+  <div class="share-box">
+    Some people don’t enter your life.  
+    They arrive.
+  </div>
+
+  <div class="share-box">
+    You don’t try to be noticed.  
+    And that’s what stays.
+  </div>
+
+
+<div class="cta-wrap">
+  <button class="step-btn">Take a Step Closer ✨</button>
+</div>
+<button class="heartbeat-btn">
+  <span class="heart">💗</span>
+  Step Closer
+</button>
+
+</section>
+</div>
+
+<div id="note"></div>
+
+
+<!-- LEFT ROSE -->
+<div class="rose left">
+  <div class="tenor-gif-embed"
+    data-postid="4198061788931276240"
+    data-share-method="host"
+    data-aspect-ratio="0.566265"
+    data-width="100%">
+  </div>
+</div>
+
+<!-- MAIN FLOWER -->
+<div class="main-flower">
+  <div class="tenor-gif-embed"
+    data-postid="14358448878742699421"
+    data-share-method="host"
+    data-aspect-ratio="1.20482"
+    data-width="100%">
+  </div>
+</div>
+
+<!-- RIGHT ROSE -->
+<div class="rose right">
+  <div class="tenor-gif-embed"
+    data-postid="3683808894166426293"
+    data-share-method="host"
+    data-aspect-ratio="1.36066"
+    data-width="100%">
+  </div>
+</div>
+
+<script>
+/* scroll reveal */
+const items = document.querySelectorAll('.line, .gif-box, .share-box');
+
+const observer = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) e.target.classList.add('visible');
+  });
+}, { threshold: 0.3 });
+
+items.forEach(i => observer.observe(i));
+
+/* micro notes */
+const note = document.getElementById('note');
+document.querySelectorAll('.glow').forEach(w => {
+  w.addEventListener('click', () => {
+    note.textContent = w.dataset.note;
+    note.style.opacity = '1';
+    setTimeout(() => note.style.opacity = '0', 2200);
+  });
+});
+
+
+const stepBtn = document.querySelector('.step-btn');
+
+stepBtn.addEventListener('click', () => {
+  stepBtn.classList.remove('clicked');
+  void stepBtn.offsetWidth;
+  stepBtn.classList.add('clicked');
+});
+
+
+const layer = document.querySelector('.light-particles');
+
+for (let i = 0; i < 20; i++) {
+  const p = document.createElement('span');
+  p.style.left = Math.random() * 100 + '%';
+  p.style.animationDelay = Math.random() * 8 + 's';
+  layer.appendChild(p);
+}
+
+</script>
+
+<!-- ✅ LOAD ONCE -->
+
+</body>
+</html>
