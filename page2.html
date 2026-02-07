@@ -682,6 +682,114 @@ body::before{
 
    /* ===== 5th section css ends ===== */
 
+
+  /* ===== 6th section css starts ===== */
+
+
+.devii-section{
+  position:relative;
+  min-height:80vh;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  flex-direction:column;
+  background:
+    radial-gradient(circle at center, #1a1622 0%, #0f0d13 70%);
+  overflow:hidden;
+  text-align:center;
+}
+
+/* wrapper */
+.devii-wrapper{
+  display:flex;
+  align-items:center;
+  gap:1.5rem;
+  z-index:2;
+}
+
+/* DEVII JI text */
+.devii-text{
+  font-family:'Cormorant Garamond', serif;
+  font-weight:600;
+  font-size:clamp(3.5rem, 12vw, 9rem);
+  letter-spacing:.15em;
+  color:#f3ece7;
+  text-shadow:
+    0 0 20px rgba(230,179,194,.6),
+    0 0 60px rgba(230,179,194,.35);
+  animation:deviiGlow 4s ease-in-out infinite;
+}
+
+/* heart */
+.devii-heart{
+  font-size:clamp(3rem, 10vw, 7rem);
+  animation:heartBeat 2.4s ease-in-out infinite;
+  filter:drop-shadow(0 0 25px rgba(230,179,194,.6));
+}
+
+/* small note */
+.devii-note{
+  margin-top:2rem;
+  font-family:'Mrs Saint Delafield', cursive;
+  font-size:1.6rem;
+  color:#e6b3c2;
+  opacity:.85;
+  z-index:2;
+}
+
+/* animations */
+@keyframes deviiGlow{
+  0%,100%{
+    text-shadow:
+      0 0 20px rgba(230,179,194,.5),
+      0 0 60px rgba(230,179,194,.3);
+  }
+  50%{
+    text-shadow:
+      0 0 35px rgba(230,179,194,.8),
+      0 0 90px rgba(230,179,194,.5);
+  }
+}
+
+@keyframes heartBeat{
+  0%,100%{ transform:scale(1); }
+  50%{ transform:scale(1.18); }
+}
+
+.heart-field{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+}
+
+.heart-field::before,
+.heart-field::after{
+  content:"♥ ♥ ♥ ♥ ♥ ♥ ♥";
+  position:absolute;
+  width:200%;
+  font-size:20px;
+  color:rgba(196,138,154,.14);
+  letter-spacing:160px;
+  animation:heartFloat 28s linear infinite;
+}
+
+.heart-field::after{
+  top:60%;
+  font-size:14px;
+  opacity:.1;
+  animation-duration:36s;
+}
+
+@keyframes heartFloat{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+
+
+ /* ===== 6th section css ends ===== */
+
+
 </style>
 </head>
 
@@ -1006,6 +1114,27 @@ document.addEventListener("DOMContentLoaded",()=>{
 </script>
     
    <!-- 5th section ends -->
+
+  
+ <!-- 6th section starts -->
+
+<section class="devii-section">
+  <div class="heart-field"></div>
+
+  <div class="devii-wrapper">
+    <span class="devii-text">DEVII&nbsp;JI</span>
+    <span class="devii-heart">❤️</span>
+  </div>
+
+  <p class="devii-note">
+    some names don’t need sentences.
+  </p>
+</section>
+
+   
+ <!-- 6th section ends -->
+
+
  
 </body>
 </html>
