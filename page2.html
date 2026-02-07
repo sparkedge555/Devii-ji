@@ -9,6 +9,42 @@
 
 <style>
 
+body{
+  margin:0;
+  padding:0;
+  min-height:100vh;
+
+  /* midnight candle-lit background */
+  background:
+    radial-gradient(circle at 50% 40%,
+      #1a1622 0%,
+      #0f0d13 65%
+    );
+
+  color:#f3ece7;
+  font-family:'Cormorant Garamond', serif;
+  font-weight:500;
+  line-height:1.6;
+
+  overflow-x:hidden;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  background:
+    radial-gradient(circle at center,
+      rgba(230,179,194,.08),
+      transparent 70%
+    );
+  pointer-events:none;
+  z-index:-1;
+}
+
 /* ===== ROOT INK ===== */
 :root{
   --midnight:#0f0d13;
