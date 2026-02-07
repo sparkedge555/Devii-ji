@@ -1299,6 +1299,28 @@ body::before{
 
   
 
+.lyrics-wrapper{
+  position:relative;
+  height:170px;
+  overflow:hidden;
+  margin-top:1.5rem;
+  mask-image:linear-gradient(
+    to bottom,
+    transparent,
+    black 15%,
+    black 85%,
+    transparent
+  );
+}
+
+.lyrics-scroll{
+  white-space:pre-line;
+  font-size:1.15rem;
+  line-height:2;
+  color:#f3ece7;
+  opacity:.9;
+  transform:translateY(100%);
+}
 
    /* ===== 9th section css ends ===== */
 </style>
@@ -1802,7 +1824,48 @@ document.querySelectorAll(".unsaid").forEach(line=>{
     </div>
 
     <!-- lyrics -->
-    <div class="lyrics" id="lyricsBox"></div>
+    <div class="lyrics-wrapper">
+  <div class="lyrics-scroll" id="lyricsScroll">
+
+Ehsaas ki jo jubaan ban gaye  
+Ehsaas ki jo jubaan ban gaye  
+Dil mein mere mehmaan ban gaye  
+
+Aap ki tareef mein kya kahe  
+Aap humari jaan ban gaye  
+Aap humari jaan ban gaye  
+
+Aap hi rab aap imaan ban gaye  
+Aap humari jaan ban gaye  
+
+Qismat se humein aap humdam mil gaye  
+Jaise ki dua ko alfaaz mil gaye  
+Socha jo nahin woh hasil ho gaya  
+Chahun aur kya ke khuda de ab mujhe  
+
+Rab se mila ek ayaan ban gaye  
+Khwabo ka mere muqaam ban gaye  
+
+Aap ki tareef mein kya kahe  
+Aap humari jaan ban gaye  
+Aap humari jaan ban gaye  
+
+Aap hi rab aap imaan ban gaye  
+Aap humari jaan ban gaye  
+
+Deen hai ilaahi mera maan hai maahi  
+Main to sajda karun unko  
+Arz rubaani meri farz gawahi  
+Meri ishq hua mujhko  
+
+Deen hai ilaahi mera maan hai maahi  
+Mai to sajda karun unko  
+Arz rubaani meri farz gawahi  
+Meri ishq hua mujhko  
+
+  </div>
+</div>
+
 
     <audio id="jaanSong">
       <source src="jaan-ban-gaye.mp3" type="audio/mpeg">
@@ -1816,52 +1879,46 @@ document.querySelectorAll(".unsaid").forEach(line=>{
 const song = document.getElementById("jaanSong");
 const playBtn = document.getElementById("jaanPlay");
 const card = document.getElementById("songCard");
-const lyricsBox = document.getElementById("lyricsBox");
+const lyrics = document.getElementById("lyricsScroll");
 
-/* lyric timeline (seconds) */
-const lyrics = [
-  {time:2, text:"एहसास की जो ज़ुबान बन गए"},
-  {time:6, text:"दिल में मेरे मेहमान बन गए"},
-  {time:14, text:"आप की तारीफ़ में क्या कहें?"},
-  {time:18, text:"आप हमारी जान बन गए"},
-  {time:28, text:"क़िस्मत से हमें आप हमदम, मिल गए"},
-  {time:36, text:"जैसे कि दुआ को अल्फ़ाज़ मिल गए"},
-  {time:48, text:"रब से मिला एक अयान बन गए"},
-  {time:56, text:"ख़्वाबों का मेरे मकान बन गए"},
-  {time:68, text:"आप हमारी जान बन गए"}
-];
+const SONG_DURATION = 221; // 3 min 41 sec
 
-let lyricIndex = 0;
+let isPlaying = false;
 
 playBtn.addEventListener("click",()=>{
   if(song.paused){
     song.play();
     playBtn.textContent="❚❚";
     card.classList.add("playing");
+    startLyricsScroll();
   }else{
     song.pause();
     playBtn.textContent="▶";
     card.classList.remove("playing");
+    pauseLyricsScroll();
   }
 });
 
-/* lyric sync */
-song.addEventListener("timeupdate",()=>{
-  if(lyricIndex < lyrics.length &&
-     song.currentTime >= lyrics[lyricIndex].time){
-    lyricsBox.textContent = lyrics[lyricIndex].text;
-    lyricIndex++;
-  }
-});
+function startLyricsScroll(){
+  const progress = song.currentTime / SONG_DURATION;
+  lyrics.style.transition = `transform ${SONG_DURATION - song.currentTime}s linear`;
+  lyrics.style.transform = `translateY(-100%)`;
+}
 
-/* reset */
+function pauseLyricsScroll(){
+  const computed = getComputedStyle(lyrics).transform;
+  lyrics.style.transition = "none";
+  lyrics.style.transform = computed;
+}
+
 song.addEventListener("ended",()=>{
   playBtn.textContent="▶";
   card.classList.remove("playing");
-  lyricsBox.textContent="";
-  lyricIndex=0;
+  lyrics.style.transition="none";
+  lyrics.style.transform="translateY(100%)";
 });
 </script>
+
 
 
   <!-- 9th section ends -->
