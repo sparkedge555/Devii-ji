@@ -1,423 +1,245 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Letters Never Sent</title>
-
-<!-- Fonts -->
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600&family=Homemade+Apple&display=swap" rel="stylesheet">
+<title>Page Title</title>
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap" rel="stylesheet">
 
 <style>
-*{margin:0;padding:0;box-sizing:border-box}
-
-body{
+/* ===== SECTION BASE ===== */
+.emotion-section{
+  position:relative;
   min-height:100vh;
-  background:
-    radial-gradient(circle at top,#f7ece6,#efe2dc),
-    url('https://www.transparenttextures.com/patterns/paper-fibers.png');
-  font-family:'Playfair Display',serif;
-  color:#3a2f2a;
-  overflow-x:hidden;
+  padding:4rem 1rem;
+  background:linear-gradient(180deg,#0b0f1a,#02030a);
+  color:#f3e9ee;
+  font-family:'Caveat', cursive;
+  overflow:hidden;
 }
 
-  /* back button */
-.back-btn {
-  position: fixed;
-  top: 16px;
-  left: 16px;
-  width: 40px;
-  height: 40px;
-  border-radius: 50%;
-  border: none;
-  background: rgba(255,255,255,0.4);
-  color: #6f5a55;
-  font-size: 1.2rem;
-  opacity: 0.55;
-  cursor: pointer;
-  z-index: 10;
-  transition: all 0.4s ease;
-}
-.back-btn:hover {
-  opacity: 0.9;
-  transform: translateX(-4px);
-}
-/* ---------------- HEART BACKGROUND ---------------- */
-.hearts{
-  position:fixed;
-  inset:0;
-  pointer-events:none;
-  z-index:0;
-}
-
-.heart{
-  position:absolute;
-  bottom:-20px;
-  width:14px;
-  height:14px;
-  background:rgba(255,120,150,0.35);
-  transform:rotate(45deg);
-  animation:float 9s linear infinite;
-}
-
-.heart::before,
-.heart::after{
-  content:'';
-  position:absolute;
-  width:14px;
-  height:14px;
-  background:inherit;
-  border-radius:50%;
-}
-
-.heart::before{top:-7px;left:0}
-.heart::after{left:-7px;top:0}
-
-@keyframes float{
-  to{
-    transform:translateY(-110vh) rotate(45deg);
-    opacity:0;
-  }
-}
-
-/* ---------------- HEADER ---------------- */
-.header{
+/* ===== TITLE ===== */
+.emotion-title{
   text-align:center;
-  padding:10vh 8% 6vh;
-  position:relative;
-  z-index:2;
-}
-
-.header h1{
-  font-family:'Homemade Apple',cursive;
   font-size:2.2rem;
-  margin-bottom:1rem;
+  margin-bottom:3rem;
+  letter-spacing:1px;
+  opacity:.9;
 }
 
-.header p{opacity:.7}
-
-/* ---------------- LIBRARY ---------------- */
-.library{
+/* ===== PHOTOS ===== */
+.photo-row{
   display:flex;
-  flex-direction:column;
-  align-items:center;
-  gap:3rem;
-  padding-bottom:14vh;
+  justify-content:center;
+  gap:2rem;
+  flex-wrap:wrap;
   position:relative;
   z-index:2;
 }
 
-/* ---------------- ENVELOPE ---------------- */
-.envelope{
-  position:relative;
-  width:240px;
-  height:150px;
-  background:#f5e7df;
-  border-radius:8px;
-  box-shadow:0 18px 35px rgba(0,0,0,.18);
-  cursor:pointer;
-  transition:.6s;
+.photo-frame{
+  width:260px;
+  padding:12px;
+  background:rgba(255,255,255,.04);
+  border-radius:20px;
+  backdrop-filter:blur(6px);
+  box-shadow:0 20px 60px rgba(0,0,0,.6);
+  transition:.6s ease;
 }
 
-.envelope::before{
-  content:'';
+.photo-frame img{
+  width:100%;
+  border-radius:14px;
+  filter:grayscale(20%) brightness(.85);
+  transition:.6s ease;
+}
+
+.photo-frame:hover img{
+  filter:brightness(1) saturate(1.1);
+}
+
+.photo-frame:hover{
+  transform:translateY(-10px);
+}
+
+.caption{
+  margin-top:.8rem;
+  font-size:1.1rem;
+  opacity:.85;
+  text-align:center;
+}
+
+/* ===== LOCK AREA ===== */
+.lock-area{
+  margin-top:4rem;
+  text-align:center;
+  z-index:2;
+  position:relative;
+}
+
+.lock-box{
+  width:80px;
+  height:80px;
+  margin:0 auto 1rem;
+  border-radius:16px;
+  background:rgba(255,255,255,.06);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  font-size:2rem;
+  box-shadow:0 0 40px rgba(255,100,150,.15);
+  transition:.6s ease;
+}
+
+.lock-area input{
+  padding:.6rem 1rem;
+  border-radius:20px;
+  border:none;
+  outline:none;
+  font-family:inherit;
+  text-align:center;
+}
+
+.lock-area button{
+  margin-left:.5rem;
+  padding:.5rem 1.2rem;
+  border:none;
+  border-radius:20px;
+  cursor:pointer;
+}
+
+.lock-hint{
+  margin-top:.6rem;
+  font-size:.9rem;
+  opacity:.6;
+}
+
+/* ===== UNLOCK MESSAGE ===== */
+.unlock-message{
+  margin-top:2rem;
+  text-align:center;
+  font-size:1.6rem;
+  opacity:0;
+  transform:translateY(20px);
+  transition:.8s ease;
+}
+
+/* ===== UNLOCKED STATE ===== */
+.emotion-section.unlocked .lock-box{
+  transform:scale(1.2) rotate(360deg);
+  background:rgba(255,120,170,.3);
+}
+
+.emotion-section.unlocked .unlock-message{
+  opacity:1;
+  transform:translateY(0);
+}
+
+/* ===== RAIN ===== */
+.rain{
   position:absolute;
   inset:0;
-  background:linear-gradient(135deg,#ecd6cc,#f6ede8);
-  clip-path:polygon(0 0,50% 55%,100% 0,100% 100%,0 100%);
-  transform-origin:top;
-  transition:.9s ease;
-  z-index:3;
+  background-image:
+    linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
+  background-size:2px 20px;
+  animation:rain 0.4s linear infinite;
+  opacity:.15;
+  pointer-events:none;
 }
 
-/* ---------------- LETTER ---------------- */
-.letter{
-  position:absolute;
-  bottom:10px;
-  left:50%;
-  transform:translateX(-50%);
-  width:210px;
-  max-height:0;
-  overflow:hidden;
-  background:#fffdf8 url('https://www.transparenttextures.com/patterns/paper.png');
-  border-radius:6px;
-  box-shadow:0 12px 25px rgba(0,0,0,.15);
-  transition:max-height 1.1s ease;
-  z-index:1;
+@keyframes rain{
+  from{background-position:0 0}
+  to{background-position:-10px 20px}
 }
 
-.letter-content{
-  padding:18px;
-  font-family:'Homemade Apple',cursive;
-  font-size:.95rem;
-  line-height:1.8;
-  opacity:0;
-  transition:opacity .8s ease;
-}
-
-/* ---------------- OPEN STATE ---------------- */
-.envelope.open{transform:translateY(-12px)}
-.envelope.open::before{transform:rotateX(160deg)}
-.envelope.open .letter{max-height:320px}
-.envelope.open .letter-content{opacity:1}
-
-/* ---------------- BUBU DUDU ---------------- */
-.bubu-wrapper{
-  position: fixed;
-  bottom: 110px;   /* ⬅️ footer se clearly upar */
-  right: 16px;
-
-  width: 110px;
-  max-width: 30vw;
-  opacity: 0.9;
-  pointer-events: none;
-  z-index: 2;
-}
-
-
-@media (max-width:480px){
-  .bubu-wrapper{
-    bottom:56px;
-    width:90px;
-  }
-}
-
-
-.gif-holder{
-  width:140px;
-  max-width:40vw;
-  margin:auto;
-  display:flex;
-  justify-content:center;
-  align-items:center;
-
-  border-radius:18px;
-  overflow:hidden;   /* 🔥 this is the key */
-}
-
-
-@media (max-width:600px){
-  .gif-holder{
-    width:110px;
-  }
-}
-
-
-.reel-box{
-  width:100%;
-  display:flex;
-  justify-content:center;
-  margin:4vh 0 6vh;
-  z-index:2;
-  position:relative;
-}
-
-.reel-box video{
-  width:320px;
-  max-width:90%;
-  aspect-ratio:9/16;
-  border-radius:18px;
-  box-shadow:0 18px 40px rgba(0,0,0,0.25);
-  background:#000;
-}
-
-/* ---------------- FOOT ---------------- */
-.footer{
-  position:fixed;
-  bottom:10px;
-  width:100%;
-  text-align:center;
-  font-family:'Homemade Apple',cursive;
-  font-size:.8rem;
-  opacity:.6;
-  z-index:2;
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-.simple-envelope{
-  width:100%;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  margin:4rem 0;
-}
-
-/* envelope */
-.env-body{
-  width:260px;
-  height:160px;
-  background:#f1d6d6;
-  border-radius:8px;
-  position:relative;
-  cursor:pointer;
-  box-shadow:0 10px 25px rgba(0,0,0,.15);
-}
-
-.env-flap{
-  position:absolute;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:#e8bcbc;
-  clip-path:polygon(0 0,100% 0,50% 55%);
-  transform-origin:top;
-  transition:transform .8s ease;
-}
-
-.env-text{
-  position:absolute;
-  bottom:20px;
-  width:100%;
-  text-align:center;
-  font-family:'Homemade Apple', cursive;
-  font-size:.9rem;
-  color:#6b4a4a;
-}
-
-/* letter */
-.simple-letter{
-  width:min(210mm,90vw);
-  max-height:0;
-  overflow:hidden;
-  transition:max-height 1s ease;
-}
-
-.letter-paper{
-  background:#fffdf8;
-  margin-top:1.5rem;
-  padding:clamp(1.5rem,4vw,3rem);
-  border-radius:6px;
-  font-family:'Playfair Display', serif;
-  line-height:1.8;
-  box-shadow:0 18px 40px rgba(0,0,0,.2);
-}
-
-.letter-paper h2{
-  margin-bottom:1.2rem;
-}
-
-.sign{
-  text-align:right;
-  margin-top:2.5rem;
-  font-family:'Homemade Apple', cursive;
-}
-
-/* open state */
-.simple-envelope.open .env-flap{
-  transform:rotateX(180deg);
-}
-
-.simple-envelope.open .simple-letter{
-  max-height:90vh;
-}
-
-
+/* ===== 1st section ends ===== */
 </style>
 </head>
-
 <body>
-<button class="back-btn" onclick="history.back()">←</button>
-  
-<!-- HEARTS -->
-<div class="hearts">
-  <div class="heart" style="left:5%;animation-delay:0s"></div>
-  <div class="heart" style="left:15%;animation-delay:2s"></div>
-  <div class="heart" style="left:25%;animation-delay:4s"></div>
-  <div class="heart" style="left:35%;animation-delay:1s"></div>
-  <div class="heart" style="left:45%;animation-delay:3s"></div>
-  <div class="heart" style="left:55%;animation-delay:5s"></div>
-  <div class="heart" style="left:65%;animation-delay:.5s"></div>
-  <div class="heart" style="left:75%;animation-delay:2.5s"></div>
-  <div class="heart" style="left:85%;animation-delay:4.5s"></div>
-  <div class="heart" style="left:95%;animation-delay:1.5s"></div>
-</div>
 
-<!-- HEADER -->
-<div class="header">
-  <h1>Letters Never Sent</h1>
-  <p>Some feelings stay folded — not forgotten.</p>
-</div>
-<div class="reel-box">
-  <video 
-    src="palpaldikepaas.mp4" 
-    controls 
-    playsinline 
-    muted 
-    loop>
-  </video>
-</div>
+/* ===== 1st section starts ===== */
+<section class="emotion-section">
 
-<!-- LIBRARY -->
-<div class="library">
+  <!-- rain layer -->
+  <div class="rain"></div>
 
+  <!-- heading -->
+  <h2 class="emotion-title">Some memories don’t fade…</h2>
 
+  <!-- photo gallery -->
+  <div class="photo-row">
 
-
-
-<div class="simple-envelope">
-  <div class="env-body">
-    <div class="env-flap"></div>
-    <p class="env-text">Tap to open</p>
-  </div>
-
-  <div class="simple-letter">
-    <div class="letter-paper">
-      <h2>Dear You,</h2>
-      <p>
-        This is a quiet letter.<br>
-        No drama, no noise.<br><br>
-
-        Just words that stayed,<br>
-        because timing never listened.
-      </p>
-
-      <p class="sign">— Me</p>
+    <div class="photo-frame">
+      <img src="https://via.placeholder.com/260x340" />
+      <p class="caption">This smile stayed.</p>
     </div>
+
+    <div class="photo-frame">
+      <img src="https://via.placeholder.com/260x340" />
+      <p class="caption">Even silence felt warm.</p>
+    </div>
+
+    <div class="photo-frame">
+      <img src="https://via.placeholder.com/260x340" />
+      <p class="caption">Some nights remember you.</p>
+    </div>
+
   </div>
-</div>
 
+  <!-- LOCKED BOX -->
+  <div class="lock-area">
 
+    <div class="lock-box" id="lockBox">
+      🔒
+    </div>
 
+    <input type="text" id="lockInput" placeholder="type the name…" />
+    <button id="unlockBtn">Open</button>
 
+    <p class="lock-hint">Some names are keys.</p>
 
-</div>
-
-<!-- BUBU DUDU -->
-<div class="gif-holder">
-  <div class="tenor-gif-embed"
-    data-postid="4232353899743732903"
-    data-share-method="host"
-    data-aspect-ratio="1"
-    data-width="100%">
   </div>
-</div>
 
+  <!-- unlock message -->
+  <div class="unlock-message" id="unlockMessage">
+    You were always meant to open this 💖
+  </div>
 
-<div class="footer">Touch an envelope gently.</div>
+  <!-- hover sound -->
+  <audio id="hoverSound">
+    <source src="https://assets.mixkit.co/sfx/preview/mixkit-soft-click-1125.mp3">
+  </audio>
 
-<script src="https://tenor.com/embed.js" async></script>
-
-
+</section>
 
 <script>
-document.querySelector('.env-body').addEventListener('click',()=>{
-  document.querySelector('.simple-envelope')
-    .classList.toggle('open');
-});
+document.addEventListener("DOMContentLoaded",()=>{
 
+  const unlockBtn = document.getElementById("unlockBtn");
+  const input = document.getElementById("lockInput");
+  const section = document.querySelector(".emotion-section");
+  const sound = document.getElementById("hoverSound");
+
+  /* hover sound */
+  document.querySelectorAll(".photo-frame")
+    .forEach(frame=>{
+      frame.addEventListener("mouseenter",()=>{
+        sound.currentTime=0;
+        sound.play();
+      });
+    });
+
+  /* unlock logic */
+  unlockBtn.addEventListener("click",()=>{
+    if(input.value.trim().toLowerCase() === "devii"){
+      section.classList.add("unlocked");
+    }else{
+      input.value="";
+      input.placeholder="not this…";
+    }
+  });
+
+});
 </script>
+
+/* ===== 1st section ends ===== */
 </body>
 </html>
-
