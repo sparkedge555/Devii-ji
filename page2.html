@@ -1159,8 +1159,7 @@ body::before{
 /* ===== 8th section css ends ===== */
 
   /* ===== 9th section css starts ===== */
-
-/* ===== JAAN SONG SECTION ===== */
+/* ===== SECTION ===== */
 .jaan-song-section{
   position:relative;
   min-height:100vh;
@@ -1168,12 +1167,11 @@ body::before{
   display:flex;
   align-items:center;
   justify-content:center;
-  text-align:center;
   overflow:hidden;
   font-family:'Cormorant Garamond', serif;
 }
 
-/* floating hearts */
+/* hearts */
 .song-hearts::before{
   content:"❤ ❤ ❤ ❤ ❤";
   position:absolute;
@@ -1187,43 +1185,66 @@ body::before{
 }
 
 @keyframes heartDrift{
-  from{ transform:translateX(0); }
-  to{ transform:translateX(-50%); }
+  from{transform:translateX(0);}
+  to{transform:translateX(-50%);}
 }
 
-/* song card */
+/* ===== CARD ===== */
 .song-card{
+  position:relative;
   z-index:2;
-  background:rgba(26,22,34,.55);
-  backdrop-filter:blur(10px);
+  background:rgba(26,22,34,.6);
+  backdrop-filter:blur(12px);
   padding:3rem 2.5rem;
-  border-radius:24px;
+  border-radius:26px;
+  max-width:440px;
+  text-align:center;
   box-shadow:0 30px 90px rgba(0,0,0,.6);
-  max-width:420px;
+  transition:.6s ease;
 }
 
-/* whisper line */
+/* glowing when playing */
+.song-card.playing{
+  box-shadow:
+    0 0 40px rgba(230,179,194,.6),
+    0 0 90px rgba(230,179,194,.35);
+}
+
+/* image */
+.song-image{
+  width:140px;
+  height:140px;
+  margin:0 auto 1.5rem;
+  border-radius:50%;
+  overflow:hidden;
+  box-shadow:0 0 35px rgba(230,179,194,.5);
+}
+
+.song-image img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+}
+
+/* whisper */
 .song-whisper{
   font-family:'Mrs Saint Delafield', cursive;
   font-size:1.6rem;
   color:#e6b3c2;
-  opacity:.9;
-  margin-bottom:1.2rem;
+  margin-bottom:1rem;
 }
 
-/* song title */
+/* title */
 .song-name{
   font-size:3rem;
-  font-weight:600;
   color:#f3ece7;
-  margin-bottom:.4rem;
 }
 
 .song-artist{
   font-size:1rem;
   color:#d8cfc9;
   opacity:.7;
-  margin-bottom:3rem;
+  margin-bottom:2.5rem;
 }
 
 /* player */
@@ -1232,24 +1253,20 @@ body::before{
   align-items:center;
   justify-content:center;
   gap:1.6rem;
+  margin-bottom:2rem;
 }
 
 /* play button */
 #jaanPlay{
-  width:68px;
-  height:68px;
+  width:70px;
+  height:70px;
   border-radius:50%;
   border:none;
   background:radial-gradient(circle,#e6b3c2,#c48a9a);
   color:#0f0d13;
   font-size:1.6rem;
   cursor:pointer;
-  box-shadow:0 0 45px rgba(230,179,194,.6);
-  transition:.4s ease;
-}
-
-#jaanPlay:hover{
-  transform:scale(1.08);
+  box-shadow:0 0 45px rgba(230,179,194,.7);
 }
 
 /* pulse line */
@@ -1258,12 +1275,26 @@ body::before{
   height:2px;
   background:linear-gradient(90deg,#c48a9a,#e6b3c2,#c48a9a);
   opacity:.5;
-  animation:pulseSoft 3.5s ease-in-out infinite;
+}
+
+/* animate pulse when playing */
+.song-card.playing .pulse-line{
+  animation:pulseSoft 2.8s ease-in-out infinite;
 }
 
 @keyframes pulseSoft{
-  0%,100%{ opacity:.4; }
-  50%{ opacity:1; }
+  0%,100%{opacity:.4;}
+  50%{opacity:1;}
+}
+
+/* ===== LYRICS ===== */
+.lyrics{
+  min-height:90px;
+  font-size:1.2rem;
+  line-height:1.6;
+  color:#f3ece7;
+  opacity:.9;
+  transition:.6s ease;
 }
 
   
@@ -1748,45 +1779,90 @@ document.querySelectorAll(".unsaid").forEach(line=>{
 
    <!-- 9th section starts -->
 
-
- <section class="jaan-song-section">
+<section class="jaan-song-section">
 
   <div class="song-hearts"></div>
 
-  <div class="song-card">
+  <div class="song-card" id="songCard">
+
+    <!-- image -->
+    <div class="song-image">
+      <img src="jaan.jpg" alt="Jaan Ban Gaye">
+    </div>
 
     <p class="song-whisper">This song plays… the way my heart feels</p>
 
     <h2 class="song-name">Jaan Ban Gaye</h2>
     <p class="song-artist">Mithoon · Vishal Mishra · Asees Kaur</p>
 
+    <!-- player -->
     <div class="song-player">
       <button id="jaanPlay">▶</button>
       <div class="pulse-line"></div>
     </div>
 
+    <!-- lyrics -->
+    <div class="lyrics" id="lyricsBox"></div>
+
     <audio id="jaanSong">
       <source src="jaan-ban-gaye.mp3" type="audio/mpeg">
-      <!-- upload jaan-ban-gaye.mp3 -->
     </audio>
 
   </div>
 
 </section>
-<script>
-const jaanSong = document.getElementById("jaanSong");
-const jaanPlay = document.getElementById("jaanPlay");
 
-jaanPlay.addEventListener("click",()=>{
-  if(jaanSong.paused){
-    jaanSong.play();
-    jaanPlay.textContent = "❚❚";
+<script>
+const song = document.getElementById("jaanSong");
+const playBtn = document.getElementById("jaanPlay");
+const card = document.getElementById("songCard");
+const lyricsBox = document.getElementById("lyricsBox");
+
+/* lyric timeline (seconds) */
+const lyrics = [
+  {time:2, text:"एहसास की जो ज़ुबान बन गए"},
+  {time:6, text:"दिल में मेरे मेहमान बन गए"},
+  {time:14, text:"आप की तारीफ़ में क्या कहें?"},
+  {time:18, text:"आप हमारी जान बन गए"},
+  {time:28, text:"क़िस्मत से हमें आप हमदम, मिल गए"},
+  {time:36, text:"जैसे कि दुआ को अल्फ़ाज़ मिल गए"},
+  {time:48, text:"रब से मिला एक अयान बन गए"},
+  {time:56, text:"ख़्वाबों का मेरे मकान बन गए"},
+  {time:68, text:"आप हमारी जान बन गए"}
+];
+
+let lyricIndex = 0;
+
+playBtn.addEventListener("click",()=>{
+  if(song.paused){
+    song.play();
+    playBtn.textContent="❚❚";
+    card.classList.add("playing");
   }else{
-    jaanSong.pause();
-    jaanPlay.textContent = "▶";
+    song.pause();
+    playBtn.textContent="▶";
+    card.classList.remove("playing");
   }
 });
+
+/* lyric sync */
+song.addEventListener("timeupdate",()=>{
+  if(lyricIndex < lyrics.length &&
+     song.currentTime >= lyrics[lyricIndex].time){
+    lyricsBox.textContent = lyrics[lyricIndex].text;
+    lyricIndex++;
+  }
+});
+
+/* reset */
+song.addEventListener("ended",()=>{
+  playBtn.textContent="▶";
+  card.classList.remove("playing");
+  lyricsBox.textContent="";
+  lyricIndex=0;
+});
 </script>
+
 
   <!-- 9th section ends -->
 
