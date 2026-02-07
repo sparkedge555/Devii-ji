@@ -1,18 +1,34 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-<title>Page Title</title>
-<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@500;600&display=swap" rel="stylesheet">
+<meta charset="UTF-8">
+<title>Midnight Letter</title>
+
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Mrs+Saint+Delafield&family=Inter:wght@300;400&display=swap" rel="stylesheet">
 
 <style>
+
+/* ===== ROOT INK ===== */
+:root{
+  --midnight:#0f0d13;
+  --shadow:#1a1622;
+  --rose-muted:#c48a9a;
+  --rose-glow:#e6b3c2;
+  --cream:#f3ece7;
+  --ink:#d8cfc9;
+  --gold:#bfa27a;
+}
+
 /* ===== SECTION BASE ===== */
 .emotion-section{
   position:relative;
   min-height:100vh;
   padding:4rem 1rem;
-  background:linear-gradient(180deg,#0b0f1a,#02030a);
-  color:#f3e9ee;
-  font-family:'Caveat', cursive;
+  background:
+    radial-gradient(circle at center, #1a1622 0%, #0f0d13 65%);
+  color:var(--cream);
+  font-family:'Cormorant Garamond', serif;
   overflow:hidden;
 }
 
@@ -21,8 +37,9 @@
   text-align:center;
   font-size:2.2rem;
   margin-bottom:3rem;
-  letter-spacing:1px;
+  letter-spacing:.04em;
   opacity:.9;
+  font-weight:600;
 }
 
 /* ===== PHOTOS ===== */
@@ -38,33 +55,36 @@
 .photo-frame{
   width:260px;
   padding:12px;
-  background:rgba(255,255,255,.04);
+  background:rgba(255,255,255,.03);
   border-radius:20px;
-  backdrop-filter:blur(6px);
-  box-shadow:0 20px 60px rgba(0,0,0,.6);
-  transition:.6s ease;
+  backdrop-filter:blur(8px);
+  box-shadow:0 25px 70px rgba(0,0,0,.7);
+  transition:1.2s ease;
 }
 
 .photo-frame img{
   width:100%;
   border-radius:14px;
   filter:grayscale(20%) brightness(.85);
-  transition:.6s ease;
+  transition:1.2s ease;
 }
 
 .photo-frame:hover img{
-  filter:brightness(1) saturate(1.1);
+  filter:brightness(1) saturate(1.05);
 }
 
 .photo-frame:hover{
   transform:translateY(-10px);
 }
 
+/* ===== CAPTION ===== */
 .caption{
   margin-top:.8rem;
-  font-size:1.1rem;
-  opacity:.85;
+  font-family:'Mrs Saint Delafield', cursive;
+  font-size:1.4rem;
+  opacity:.75;
   text-align:center;
+  color:var(--rose-glow);
 }
 
 /* ===== LOCK AREA ===== */
@@ -79,53 +99,66 @@
   width:80px;
   height:80px;
   margin:0 auto 1rem;
-  border-radius:16px;
-  background:rgba(255,255,255,.06);
+  border-radius:18px;
+  background:rgba(255,255,255,.05);
   display:flex;
   align-items:center;
   justify-content:center;
   font-size:2rem;
-  box-shadow:0 0 40px rgba(255,100,150,.15);
-  transition:.6s ease;
+  box-shadow:0 0 50px rgba(230,179,194,.18);
+  transition:1.4s ease;
 }
 
+/* ===== INPUT ===== */
 .lock-area input{
-  padding:.6rem 1rem;
-  border-radius:20px;
+  padding:.6rem 1.2rem;
+  border-radius:22px;
   border:none;
   outline:none;
-  font-family:inherit;
+  background:#1a1622;
+  color:var(--cream);
+  font-family:'Cormorant Garamond', serif;
   text-align:center;
 }
 
+/* ===== BUTTON ===== */
 .lock-area button{
   margin-left:.5rem;
-  padding:.5rem 1.2rem;
+  padding:.55rem 1.4rem;
   border:none;
-  border-radius:20px;
+  border-radius:22px;
   cursor:pointer;
+  font-family:'Inter', sans-serif;
+  font-weight:300;
+  background:linear-gradient(135deg,var(--rose-muted),var(--gold));
+  color:#0f0d13;
 }
 
+/* ===== HINT ===== */
 .lock-hint{
   margin-top:.6rem;
-  font-size:.9rem;
-  opacity:.6;
+  font-family:'Mrs Saint Delafield', cursive;
+  font-size:1.2rem;
+  opacity:.55;
+  color:var(--ink);
 }
 
 /* ===== UNLOCK MESSAGE ===== */
 .unlock-message{
-  margin-top:2rem;
+  margin-top:2.5rem;
   text-align:center;
   font-size:1.6rem;
+  font-family:'Cormorant Garamond', serif;
   opacity:0;
   transform:translateY(20px);
-  transition:.8s ease;
+  transition:1.6s ease;
+  color:var(--rose-glow);
 }
 
 /* ===== UNLOCKED STATE ===== */
 .emotion-section.unlocked .lock-box{
-  transform:scale(1.2) rotate(360deg);
-  background:rgba(255,120,170,.3);
+  transform:scale(1.15) rotate(360deg);
+  background:rgba(230,179,194,.28);
 }
 
 .emotion-section.unlocked .unlock-message{
@@ -138,72 +171,181 @@
   position:absolute;
   inset:0;
   background-image:
-    linear-gradient(rgba(255,255,255,.08) 1px, transparent 1px);
-  background-size:2px 20px;
-  animation:rain 0.4s linear infinite;
-  opacity:.15;
+    linear-gradient(rgba(255,255,255,.06) 1px, transparent 1px);
+  background-size:2px 22px;
+  animation:rain .6s linear infinite;
+  opacity:.12;
   pointer-events:none;
 }
 
 @keyframes rain{
   from{background-position:0 0}
-  to{background-position:-10px 20px}
+  to{background-position:-10px 22px}
 }
 
-/* ===== 1st section ends ===== */
+/* ===== 1st section css ends ===== */
+
+
+  /* ===== 2nd section css starts ===== */
+  .midnight-memory{
+  position:relative;
+  margin-top:6rem;
+  padding:4rem 1rem;
+  text-align:center;
+  font-family:'Cormorant Garamond', serif;
+  color:#f3ece7;
+  background:
+    radial-gradient(circle at center, #1a1622 0%, #0f0d13 70%);
+  overflow:hidden;
+}
+
+/* title */
+.memory-title{
+  font-size:1.9rem;
+  margin-bottom:2.5rem;
+  letter-spacing:.04em;
+  opacity:.9;
+}
+
+/* cards */
+.memory-row{
+  display:flex;
+  justify-content:center;
+  gap:1.6rem;
+  flex-wrap:wrap;
+  position:relative;
+  z-index:2;
+}
+
+.memory-tile{
+  width:170px;
+  height:115px;
+  padding:1.2rem;
+  border-radius:20px;
+  background:rgba(255,255,255,.04);
+  backdrop-filter:blur(10px);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  cursor:pointer;
+  color:#d8cfc9;
+  font-size:1.05rem;
+  transition:1.2s ease;
+  box-shadow:0 20px 65px rgba(0,0,0,.65);
+}
+
+.memory-tile:hover{
+  transform:translateY(-6px);
+}
+
+/* opened */
+.memory-tile.open{
+  background:
+    radial-gradient(circle at center,
+      rgba(230,179,194,.45),
+      rgba(196,138,154,.25)
+    );
+  color:#f3ece7;
+  pointer-events:none;
+  box-shadow:
+    0 0 35px rgba(230,179,194,.4),
+    inset 0 0 22px rgba(255,255,255,.08),
+    0 25px 70px rgba(0,0,0,.7);
+}
+
+/* result name */
+.memory-name{
+  margin-top:3rem;
+  font-family:'Mrs Saint Delafield', cursive;
+  font-size:2.8rem;
+  letter-spacing:14px;
+  color:#f3ece7;
+  opacity:0;
+  text-shadow:
+    0 0 14px rgba(230,179,194,.6),
+    0 0 35px rgba(230,179,194,.35);
+  transition:2s ease;
+}
+
+/* hearts background */
+.heart-field{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+}
+
+.heart-field::before,
+.heart-field::after{
+  content:"♥ ♥ ♥ ♥ ♥ ♥ ♥";
+  position:absolute;
+  width:200%;
+  font-size:18px;
+  color:rgba(196,138,154,.12);
+  letter-spacing:140px;
+  animation:heartMove 20s linear infinite;
+}
+
+.heart-field::after{
+  top:65%;
+  font-size:14px;
+  opacity:.08;
+  animation-duration:28s;
+}
+
+@keyframes heartMove{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+ /* ===== 2nd section css ends ===== */
+  
 </style>
 </head>
+
 <body>
 
-/* ===== 1st section starts ===== */
+  <!-- 1st section starts -->
 <section class="emotion-section">
 
-  <!-- rain layer -->
   <div class="rain"></div>
 
-  <!-- heading -->
   <h2 class="emotion-title">Some memories don’t fade…</h2>
 
-  <!-- photo gallery -->
   <div class="photo-row">
 
     <div class="photo-frame">
-      <img src="https://via.placeholder.com/260x340" />
+      <img src="https://via.placeholder.com/260x340">
       <p class="caption">This smile stayed.</p>
     </div>
 
     <div class="photo-frame">
-      <img src="https://via.placeholder.com/260x340" />
+      <img src="https://via.placeholder.com/260x340">
       <p class="caption">Even silence felt warm.</p>
     </div>
 
     <div class="photo-frame">
-      <img src="https://via.placeholder.com/260x340" />
+      <img src="https://via.placeholder.com/260x340">
       <p class="caption">Some nights remember you.</p>
     </div>
 
   </div>
 
-  <!-- LOCKED BOX -->
   <div class="lock-area">
 
-    <div class="lock-box" id="lockBox">
-      🔒
-    </div>
+    <div class="lock-box">🔒</div>
 
-    <input type="text" id="lockInput" placeholder="type the name…" />
+    <input type="text" id="lockInput" placeholder="type the name…">
     <button id="unlockBtn">Open</button>
 
     <p class="lock-hint">Some names are keys.</p>
 
   </div>
 
-  <!-- unlock message -->
-  <div class="unlock-message" id="unlockMessage">
-    You were always meant to open this 💖
+  <div class="unlock-message">
+    You were always meant to open this
   </div>
 
-  <!-- hover sound -->
   <audio id="hoverSound">
     <source src="https://assets.mixkit.co/sfx/preview/mixkit-soft-click-1125.mp3">
   </audio>
@@ -218,18 +360,15 @@ document.addEventListener("DOMContentLoaded",()=>{
   const section = document.querySelector(".emotion-section");
   const sound = document.getElementById("hoverSound");
 
-  /* hover sound */
-  document.querySelectorAll(".photo-frame")
-    .forEach(frame=>{
-      frame.addEventListener("mouseenter",()=>{
-        sound.currentTime=0;
-        sound.play();
-      });
+  document.querySelectorAll(".photo-frame").forEach(frame=>{
+    frame.addEventListener("mouseenter",()=>{
+      sound.currentTime=0;
+      sound.play();
     });
+  });
 
-  /* unlock logic */
   unlockBtn.addEventListener("click",()=>{
-    if(input.value.trim().toLowerCase() === "devii"){
+    if(input.value.trim().toLowerCase()==="devii"){
       section.classList.add("unlocked");
     }else{
       input.value="";
@@ -239,7 +378,59 @@ document.addEventListener("DOMContentLoaded",()=>{
 
 });
 </script>
+ <!-- 1st section ends -->
 
-/* ===== 1st section ends ===== */
+
+   <!-- 2nd section starts -->
+
+  <section class="midnight-memory">
+
+  <div class="heart-field"></div>
+
+  <h3 class="memory-title">Touch them… one by one</h3>
+
+  <div class="memory-row">
+    <div class="memory-tile" data-letter="D">That first silence</div>
+    <div class="memory-tile" data-letter="E">Eyes that spoke</div>
+    <div class="memory-tile" data-letter="V">Very few promises</div>
+    <div class="memory-tile" data-letter="I">In between moments</div>
+    <div class="memory-tile" data-letter="I">It was always you</div>
+  </div>
+
+  <div class="memory-name" id="memoryName"></div>
+
+</section>
+
+
+<script>
+document.addEventListener("DOMContentLoaded",()=>{
+
+  const tiles = document.querySelectorAll(".memory-tile");
+  const nameBox = document.getElementById("memoryName");
+  let collected = "";
+
+  tiles.forEach(tile=>{
+    tile.addEventListener("click",()=>{
+      if(tile.classList.contains("open")) return;
+
+      tile.classList.add("open");
+      collected += tile.dataset.letter;
+
+      nameBox.textContent = collected;
+      nameBox.style.opacity = 1;
+
+      if(collected.length === tiles.length){
+        setTimeout(()=>{
+          nameBox.textContent = "devii";
+        },900);
+      }
+    });
+  });
+
+});
+</script>
+ <!-- 2nd section ends -->
+
+  
 </body>
 </html>
