@@ -790,6 +790,267 @@ body::before{
  /* ===== 6th section css ends ===== */
 
 
+  /* ===== 7th section css starts ===== */
+
+/* ===== LOVE LETTER SECTION BASE ===== */
+.love-letter-section{
+  position:relative;
+  min-height:100vh;
+  background:linear-gradient(180deg,#0f0d13,#1a1622);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  font-family:'Cormorant Garamond', serif;
+}
+
+/* ===== FLOATING HEARTS ===== */
+.floating-hearts::before{
+  content:"❤ ❤ ❤ ❤ ❤ ❤ ❤";
+  position:absolute;
+  width:200%;
+  top:30%;
+  left:0;
+  font-size:20px;
+  color:rgba(196,138,154,.18);
+  letter-spacing:140px;
+  animation:heartMove 30s linear infinite;
+  pointer-events:none;
+}
+
+@keyframes heartMove{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+
+/* ===== ENVELOPE ===== */
+.envelope{
+  position:relative;
+  width:260px;
+  height:170px;
+  background:#f2e6dc;
+  border-radius:10px;
+  cursor:pointer;
+  box-shadow:0 20px 60px rgba(0,0,0,.5);
+  z-index:3;
+  transition:.6s ease;
+}
+
+.envelope:hover{
+  transform:translateY(-6px);
+}
+
+/* glow behind envelope */
+.glow{
+  position:absolute;
+  inset:-30px;
+  background:radial-gradient(circle,
+    rgba(255,170,190,.6),
+    transparent 70%);
+  filter:blur(28px);
+  animation:glowPulse 3s ease-in-out infinite;
+  z-index:-1;
+}
+
+@keyframes glowPulse{
+  0%,100%{ opacity:.6; }
+  50%{ opacity:1; }
+}
+
+/* envelope flap */
+.envelope-flap{
+  position:absolute;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:#e8d5c7;
+  clip-path:polygon(0 0,100% 0,50% 55%);
+  transform-origin:top;
+  transition:.8s ease;
+}
+
+.envelope.open .envelope-flap{
+  transform:rotateX(160deg);
+}
+
+/* envelope body */
+.envelope-body{
+  width:100%;
+  height:100%;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+}
+
+/* tap text */
+.tap-text{
+  font-family:'Caveat', cursive;
+  font-size:1.5rem;
+  color:#6b4c3b;
+  opacity:.9;
+}
+
+/* ===== LETTER OVERLAY ===== */
+.letter-overlay{
+  position:fixed;
+  inset:0;
+  background:rgba(0,0,0,.55);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  opacity:0;
+  pointer-events:none;
+  transition:.5s ease;
+  z-index:10;
+}
+
+.letter-overlay.show{
+  opacity:1;
+  pointer-events:auto;
+}
+
+/* ===== LETTER POPUP ===== */
+.letter{
+  background:#fff8f5;
+  width:min(90%,600px);
+  max-height:80vh;
+  border-radius:18px;
+  padding:2.5rem;
+  overflow-y:auto;
+  box-shadow:0 40px 100px rgba(0,0,0,.6);
+  position:relative;
+  animation:popIn .6s ease;
+}
+
+@keyframes popIn{
+  from{ transform:scale(.85); opacity:0; }
+  to{ transform:scale(1); opacity:1; }
+}
+
+/* close button */
+.close-btn{
+  position:absolute;
+  top:14px;
+  right:16px;
+  background:#c48a9a;
+  color:#fff;
+  border:none;
+  border-radius:50%;
+  width:36px;
+  height:36px;
+  font-size:1.2rem;
+  cursor:pointer;
+  box-shadow:0 8px 20px rgba(0,0,0,.3);
+}
+
+.close-btn:hover{
+  background:#a86b7c;
+}
+
+/* letter content */
+.letter h2{
+  text-align:center;
+  margin-bottom:1.6rem;
+  font-size:2.2rem;
+  color:#5a2d3c;
+}
+
+.letter p{
+  font-size:1.2rem;
+  line-height:1.7;
+  margin-bottom:1.6rem;
+  color:#3a2b2f;
+}
+
+/* ===== SHAYARI CARD ===== */
+.shayari-card{
+  background:#f7e9ef;
+  border-left:5px solid #c48a9a;
+  padding:1.2rem 1.5rem;
+  margin:2rem 0;
+  border-radius:12px;
+  font-style:italic;
+  color:#4a2f36;
+}
+
+.shayari-card span{
+  display:block;
+  margin-top:.6rem;
+  font-size:.9rem;
+  opacity:.7;
+}
+
+/* ===== SIGN ===== */
+.letter-sign{
+  margin-top:2rem;
+  text-align:right;
+  font-family:'Mrs Saint Delafield', cursive;
+  font-size:2.2rem;
+  color:#7a3e50;
+}
+
+.letter-heading{
+  position:absolute;
+  top:18%;
+  text-align:center;
+  width:100%;
+  z-index:2;
+  pointer-events:none;
+}
+
+.letter-heading h2{
+  font-family:'Cormorant Garamond', serif;
+  font-size:2.4rem;
+  font-weight:500;
+  color:#f3ece7;
+  margin-bottom:.6rem;
+  letter-spacing:.5px;
+  opacity:.95;
+}
+
+.letter-heading p{
+  font-family:'Mrs Saint Delafield', cursive;
+  font-size:1.4rem;
+  color:#e6b3c2;
+  opacity:.85;
+}
+
+
+  heart-field{
+  position:absolute;
+  inset:0;
+  pointer-events:none;
+  z-index:1;
+}
+
+.heart-field::before,
+.heart-field::after{
+  content:"♥ ♥ ♥ ♥ ♥ ♥ ♥";
+  position:absolute;
+  width:200%;
+  font-size:20px;
+  color:rgba(196,138,154,.14);
+  letter-spacing:160px;
+  animation:heartFloat 28s linear infinite;
+}
+
+.heart-field::after{
+  top:60%;
+  font-size:14px;
+  opacity:.1;
+  animation-duration:36s;
+}
+
+@keyframes heartFloat{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+
+
+  /* ===== 7th section css ends ===== */
+
+
 </style>
 </head>
 
@@ -1134,6 +1395,94 @@ document.addEventListener("DOMContentLoaded",()=>{
    
  <!-- 6th section ends -->
 
+
+   <!-- 7th section starts -->
+
+<section class="love-letter-section">
+ <div class="heart-field"></div>
+
+<div class="floating-hearts"></div>
+  
+<div class="letter-heading">
+  <h3>One letter, meant only for you</h3>
+  <p>Some words wait patiently… until the right heart opens them.</p>
+</div>
+<br/><b/><br/>
+
+
+  <!-- Envelope -->
+  <div class="envelope" id="envelope">
+    <div class="glow"></div>
+    <div class="envelope-flap"></div>
+    <div class="envelope-body">
+      <span class="tap-text">tap gently 💌</span>
+    </div>
+  </div>
+
+  <!-- Letter Popup -->
+  <div class="letter-overlay" id="letterOverlay">
+    <div class="letter">
+
+      <button class="close-btn" id="closeLetter">✕</button>
+
+      <h2>My Dearest Devii Ji ❤️</h2>
+
+      <p>
+        I don’t know when it started…  
+        but somewhere between silence and smiles,  
+        you became a feeling I carry everywhere.
+      </p>
+
+      <div class="shayari-card">
+        “इश्क़ वो नहीं जो लफ्ज़ों में बयां हो जाए,  
+        इश्क़ तो वो है जो आँखों से छलक जाए।”  
+        <span>— Anonymous</span>
+      </div>
+
+      <p>
+        I never planned to feel this deeply.  
+        Yet here I am, writing words I didn’t rehearse,  
+        hoping you’ll feel even half of what I do.
+      </p>
+
+      <div class="shayari-card">
+        “तुम्हारे बाद कोई ख्वाब नहीं देखा हमने,  
+        बस एक ख्याल है — और वो भी तुम।”  
+        <span>— Gulzar</span>
+      </div>
+
+      <p>
+        If this letter reaches your heart softly,  
+        then maybe… I’ve already won.
+      </p>
+
+      <div class="letter-sign">
+        always yours 🤍
+      </div>
+
+    </div>
+  </div>
+
+</section>
+
+<script>
+const envelope = document.getElementById("envelope");
+const overlay = document.getElementById("letterOverlay");
+const closeBtn = document.getElementById("closeLetter");
+
+envelope.addEventListener("click",()=>{
+  envelope.classList.add("open");
+  setTimeout(()=>{
+    overlay.classList.add("show");
+  },500);
+});
+
+closeBtn.addEventListener("click",()=>{
+  overlay.classList.remove("show");
+});
+</script>
+
+   <!-- 7th section ends -->
 
  
 </body>
