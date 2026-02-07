@@ -1322,6 +1322,21 @@ body::before{
   transform:translateY(100%);
 }
 
+
+  .music-gif{
+  width:90px;
+  margin:1rem auto;
+  filter:drop-shadow(0 0 14px rgba(255,120,150,.5));
+  transition:.4s ease;
+}
+
+/* glow only when song plays */
+.song-card.playing .music-gif{
+  filter:
+    drop-shadow(0 0 18px rgba(255,120,150,.9))
+    drop-shadow(0 0 35px rgba(255,120,150,.6));
+}
+
    /* ===== 9th section css ends ===== */
 </style>
 </head>
@@ -1873,8 +1888,17 @@ Meri ishq hua mujhko
     </audio>
 
   </div>
+<div class="music-gif">
+  <div class="tenor-gif-embed"
+       data-postid="21144293"
+       data-share-method="host"
+       data-aspect-ratio="1"
+       data-width="100%">
+  </div>
+</div>
 
 </section>
+<script async src="https://tenor.com/embed.js"></script>
 
 <script>
 const song = document.getElementById("jaanSong");
@@ -1900,10 +1924,11 @@ playBtn.addEventListener("click",()=>{
   }
 });
 
-function startLyricsScroll(){
+function startLyricsScroll(){ 
+  lyrics.style.willChange = "transform";
   const progress = song.currentTime / SONG_DURATION;
   lyrics.style.transition = `transform ${SONG_DURATION - song.currentTime}s linear`;
-  lyrics.style.transform = `translateY(-100%)`;
+  lyrics.style.transform = "translateY(-120%)";
 }
 
 function pauseLyricsScroll(){
