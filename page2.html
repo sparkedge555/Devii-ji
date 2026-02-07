@@ -1050,7 +1050,226 @@ body::before{
 
   /* ===== 7th section css ends ===== */
 
+  /* ===== 8th section css starts ===== */
 
+/* ===== SECTION BASE ===== */
+.heartbeat-section{
+  position:relative;
+  min-height:100vh;
+  padding:6rem 1rem;
+  background:radial-gradient(circle at center,#1a1622,#0f0d13);
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+  font-family:'Cormorant Garamond', serif;
+}
+
+/* ===== PULSING GLOW ===== */
+.heartbeat-glow{
+  position:absolute;
+  inset:-20%;
+  background:radial-gradient(circle,
+    rgba(230,179,194,.15),
+    transparent 60%);
+  animation:heartbeat 4.5s ease-in-out infinite;
+  filter:blur(40px);
+  z-index:0;
+}
+
+@keyframes heartbeat{
+  0%,100%{ transform:scale(1); opacity:.6; }
+  50%{ transform:scale(1.05); opacity:1; }
+}
+
+/* ===== HEARTBEAT TEXT ===== */
+.heartbeat-text{
+  position:relative;
+  z-index:2;
+  margin-bottom:4rem;
+}
+
+.heartbeat-text .line{
+  font-size:2.4rem;
+  color:#f3ece7;
+  opacity:0;
+  animation:fadeBeat 6s infinite;
+}
+
+.heartbeat-text .two{
+  animation-delay:2.5s;
+  color:#e6b3c2;
+}
+
+@keyframes fadeBeat{
+  0%{ opacity:0; }
+  20%{ opacity:1; }
+  60%{ opacity:1; }
+  100%{ opacity:0; }
+}
+
+/* ===== UNSAID WHISPERS ===== */
+.unsaid-box{
+  display:flex;
+  flex-direction:column;
+  gap:1.2rem;
+  margin-bottom:5rem;
+  z-index:2;
+}
+
+.unsaid{
+  font-size:1.3rem;
+  color:#d8cfc9;
+  opacity:.55;
+  cursor:pointer;
+  transition:.6s ease;
+}
+
+.unsaid.revealed{
+  opacity:1;
+  color:#f3ece7;
+  text-shadow:0 0 18px rgba(230,179,194,.6);
+  pointer-events:none;
+}
+
+/* ===== MEANING LIST ===== */
+.meaning-box{
+  display:flex;
+  flex-direction:column;
+  gap:.8rem;
+  font-size:2rem;
+  color:#d8cfc9;
+  opacity:.9;
+  z-index:2;
+}
+
+.meaning-box span{
+  font-weight:500;
+}
+
+.meaning-box .you{
+  font-family:'Mrs Saint Delafield', cursive;
+  font-size:3rem;
+  color:#e6b3c2;
+  margin-top:1rem;
+}
+
+/* ===== 8th section css ends ===== */
+
+  /* ===== 9th section css starts ===== */
+
+/* ===== JAAN SONG SECTION ===== */
+.jaan-song-section{
+  position:relative;
+  min-height:100vh;
+  background:radial-gradient(circle at center,#1a1622,#0f0d13);
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  text-align:center;
+  overflow:hidden;
+  font-family:'Cormorant Garamond', serif;
+}
+
+/* floating hearts */
+.song-hearts::before{
+  content:"❤ ❤ ❤ ❤ ❤";
+  position:absolute;
+  width:200%;
+  top:45%;
+  font-size:18px;
+  letter-spacing:150px;
+  color:rgba(230,179,194,.18);
+  animation:heartDrift 36s linear infinite;
+  pointer-events:none;
+}
+
+@keyframes heartDrift{
+  from{ transform:translateX(0); }
+  to{ transform:translateX(-50%); }
+}
+
+/* song card */
+.song-card{
+  z-index:2;
+  background:rgba(26,22,34,.55);
+  backdrop-filter:blur(10px);
+  padding:3rem 2.5rem;
+  border-radius:24px;
+  box-shadow:0 30px 90px rgba(0,0,0,.6);
+  max-width:420px;
+}
+
+/* whisper line */
+.song-whisper{
+  font-family:'Mrs Saint Delafield', cursive;
+  font-size:1.6rem;
+  color:#e6b3c2;
+  opacity:.9;
+  margin-bottom:1.2rem;
+}
+
+/* song title */
+.song-name{
+  font-size:3rem;
+  font-weight:600;
+  color:#f3ece7;
+  margin-bottom:.4rem;
+}
+
+.song-artist{
+  font-size:1rem;
+  color:#d8cfc9;
+  opacity:.7;
+  margin-bottom:3rem;
+}
+
+/* player */
+.song-player{
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  gap:1.6rem;
+}
+
+/* play button */
+#jaanPlay{
+  width:68px;
+  height:68px;
+  border-radius:50%;
+  border:none;
+  background:radial-gradient(circle,#e6b3c2,#c48a9a);
+  color:#0f0d13;
+  font-size:1.6rem;
+  cursor:pointer;
+  box-shadow:0 0 45px rgba(230,179,194,.6);
+  transition:.4s ease;
+}
+
+#jaanPlay:hover{
+  transform:scale(1.08);
+}
+
+/* pulse line */
+.pulse-line{
+  width:200px;
+  height:2px;
+  background:linear-gradient(90deg,#c48a9a,#e6b3c2,#c48a9a);
+  opacity:.5;
+  animation:pulseSoft 3.5s ease-in-out infinite;
+}
+
+@keyframes pulseSoft{
+  0%,100%{ opacity:.4; }
+  50%{ opacity:1; }
+}
+
+  
+
+
+   /* ===== 9th section css ends ===== */
 </style>
 </head>
 
@@ -1484,6 +1703,92 @@ closeBtn.addEventListener("click",()=>{
 
    <!-- 7th section ends -->
 
- 
+     <!-- 8th section starts -->
+
+ <section class="heartbeat-section">
+
+  <!-- soft pulsing glow -->
+  <div class="heartbeat-glow"></div>
+
+  <!-- heartbeat text -->
+  <div class="heartbeat-text">
+    <p class="line one">Some hearts don’t race.</p>
+    <p class="line two">They just… stay.</p>
+  </div>
+
+  <!-- unsaid whispers -->
+  <div class="unsaid-box">
+    <p class="unsaid">I miss you quietly.</p>
+    <p class="unsaid">I notice the small things.</p>
+    <p class="unsaid">I’m afraid of losing you.</p>
+    <p class="unsaid">I choose you, even in silence.</p>
+  </div>
+
+  <!-- meaning list -->
+  <div class="meaning-box">
+    <span>comfort</span>
+    <span>calm</span>
+    <span>home</span>
+    <span>unfinished sentences</span>
+    <span>safe silence</span>
+    <span class="you">you</span>
+  </div>
+
+</section>
+
+<script>
+document.querySelectorAll(".unsaid").forEach(line=>{
+  line.addEventListener("click",()=>{
+    line.classList.add("revealed");
+  });
+});
+</script>
+
+   <!-- 8th section ends -->
+
+   <!-- 9th section starts -->
+
+
+ <section class="jaan-song-section">
+
+  <div class="song-hearts"></div>
+
+  <div class="song-card">
+
+    <p class="song-whisper">This song plays… the way my heart feels</p>
+
+    <h2 class="song-name">Jaan Ban Gaye</h2>
+    <p class="song-artist">Mithoon · Vishal Mishra · Asees Kaur</p>
+
+    <div class="song-player">
+      <button id="jaanPlay">▶</button>
+      <div class="pulse-line"></div>
+    </div>
+
+    <audio id="jaanSong">
+      <source src="jaan-ban-gaye.mp3" type="audio/mpeg">
+      <!-- upload jaan-ban-gaye.mp3 -->
+    </audio>
+
+  </div>
+
+</section>
+<script>
+const jaanSong = document.getElementById("jaanSong");
+const jaanPlay = document.getElementById("jaanPlay");
+
+jaanPlay.addEventListener("click",()=>{
+  if(jaanSong.paused){
+    jaanSong.play();
+    jaanPlay.textContent = "❚❚";
+  }else{
+    jaanSong.pause();
+    jaanPlay.textContent = "▶";
+  }
+});
+</script>
+
+  <!-- 9th section ends -->
+
 </body>
 </html>
