@@ -1338,6 +1338,94 @@ body::before{
 }
 
    /* ===== 9th section css ends ===== */
+
+
+/* ===== 10th section css starts ===== */
+
+
+
+  .love-footer{
+  padding:4rem 1.5rem 3rem;
+  text-align:center;
+  background:linear-gradient(180deg,#0c0b10,#09080c);
+  color:#e8dcd8;
+  font-family:'Cormorant Garamond', serif;
+  position:relative;
+  overflow:hidden;
+}
+
+.love-footer p{
+  font-size:1.2rem;
+  line-height:1.9;
+  max-width:680px;
+  margin:0 auto 1.8rem;
+  opacity:.95;
+}
+
+.love-footer span{
+  font-family:'Mrs Saint Delafield', cursive;
+  font-size:1.8rem;
+  color:#e7a4b6;
+  opacity:.9;
+}
+
+/* soft heart glow */
+.love-footer::before{
+  content:"❤";
+  position:absolute;
+  top:50%;
+  left:50%;
+  font-size:180px;
+  transform:translate(-50%,-50%);
+  color:rgba(231,164,182,.08);
+  filter:blur(6px);
+}
+.footer-sign{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  gap:.6rem;
+}
+
+.name-input{
+  background:transparent;
+  border:none;
+  border-bottom:1px solid rgba(231,164,182,.6);
+  outline:none;
+  text-align:center;
+  font-family:'Mrs Saint Delafield', cursive;
+  font-size:1.9rem;
+  color:#f1b8c8;
+  padding:.2rem .4rem;
+  width:220px;
+  transition:.4s ease;
+}
+
+.name-input::placeholder{
+  color:rgba(231,164,182,.5);
+  font-size:1.3rem;
+}
+
+.name-input:focus{
+  border-bottom-color:#f1b8c8;
+}
+
+.together-text{
+  opacity:0;
+  font-family:'Cormorant Garamond', serif;
+  font-size:1.1rem;
+  color:#e8dcd8;
+  transition:1s ease;
+}
+
+/* show "us, together" after name typed */
+.name-input:not(:placeholder-shown) + .together-text{
+  opacity:.9;
+}
+
+  
+/* ===== 10th section css ends ===== */
+
 </style>
 </head>
 
@@ -1948,6 +2036,36 @@ song.addEventListener("ended",()=>{
 
 
   <!-- 9th section ends -->
+
+  <!-- 10th section starts -->
+<footer class="love-footer">
+  <p>
+    I may not be beside you today,<br>
+    but every part of me already belongs to you.<br><br>
+
+    One day, in a moment we won’t plan,<br>
+    our paths will quietly meet… as one.
+  </p>
+
+ <div class="footer-sign">
+  <span>— always yours,</span>
+
+  <input 
+    type="text" 
+    class="name-input" 
+    placeholder="write our name as you feel…" 
+    maxlength="18"
+  />
+
+  <div class="together-text">us, together 🤍</div>
+</div>
+
+</footer>
+
+  
+  <!-- 10th section ends -->
+
+
 
 </body>
 </html>
