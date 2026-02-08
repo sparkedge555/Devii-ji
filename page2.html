@@ -2,6 +2,8 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 <title>Midnight Letter</title>
 
 <!-- Fonts -->
@@ -9,6 +11,111 @@
 
 <style>
 
+  /* =========================
+   GLOBAL RESPONSIVE RESET
+   ========================= */
+
+/* Prevent overflow issues */
+*{
+  box-sizing:border-box;
+}
+
+html, body{
+  width:100%;
+  overflow-x:hidden;
+}
+
+/* All sections behave safely */
+section{
+  width:100%;
+  max-width:100%;
+  padding-inline:clamp(1rem, 4vw, 3rem);
+}
+
+/* Images, videos, iframes */
+img, video, iframe{
+  max-width:100%;
+  height:auto;
+  display:block;
+}
+
+/* Cards auto-wrap */
+.card-row,
+.photo-row,
+.reels-row,
+.story-row{
+  display:flex;
+  flex-wrap:wrap;
+  gap:clamp(1rem, 3vw, 2rem);
+  justify-content:center;
+}
+
+/* Card width auto-adjust */
+.memory-card,
+.photo-frame,
+.reel-card,
+.story-card{
+  width:min(100%, 320px);
+}
+
+/* Text responsiveness */
+h1{ font-size:clamp(2rem, 6vw, 3.5rem); }
+h2{ font-size:clamp(1.8rem, 5vw, 2.8rem); }
+h3{ font-size:clamp(1.5rem, 4.5vw, 2.2rem); }
+p, span, li{
+  font-size:clamp(1rem, 3.8vw, 1.2rem);
+  line-height:1.7;
+}
+
+/* Buttons & inputs */
+button, input{
+  width:100%;
+  max-width:280px;
+  font-size:1rem;
+}
+
+/* Center everything nicely on mobile */
+@media (max-width:768px){
+
+  section{
+    min-height:auto;
+    padding-block:3rem;
+  }
+
+  .lock-area,
+  .footer-inner,
+  .letter,
+  .music-card{
+    width:100%;
+    margin-inline:auto;
+  }
+
+  .letter{
+    padding:1.8rem;
+    max-height:80vh;
+  }
+
+  .game-result{
+    letter-spacing:3px;
+  }
+}
+
+/* Small phones */
+@media (max-width:480px){
+
+  h1{ font-size:2rem; }
+  h2{ font-size:1.7rem; }
+
+  .envelope{
+    transform:scale(.9);
+  }
+
+  .devii-word{
+    font-size:clamp(3rem, 16vw, 5rem);
+  }
+}
+
+//
 body{
   margin:0;
   padding:0;
