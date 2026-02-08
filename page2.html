@@ -1526,6 +1526,94 @@ body::before{
  
 /* ===== 10th section css ends ===== */
 
+  /* ===============================
+   CONTINUOUS MIDNIGHT FLOW FIX
+   =============================== */
+
+/* Kill all accidental white gaps */
+html, body{
+  background:#0f0d13;
+}
+
+/* Every section melts into the next */
+section{
+  position:relative;
+  background:transparent;
+}
+
+/* Soft connector glow between sections */
+section::after{
+  content:"";
+  position:absolute;
+  left:0;
+  bottom:-1px;
+  width:100%;
+  height:120px;
+  background:linear-gradient(
+    to bottom,
+    rgba(15,13,19,0),
+    rgba(15,13,19,1)
+  );
+  pointer-events:none;
+  z-index:1;
+}
+
+/* Remove harsh bottom margins */
+section{
+  margin-bottom:0;
+  padding-bottom:5rem;
+}
+
+/* Inner containers get subtle shadow, not white */
+.section-inner,
+.music-card,
+.letter,
+.story-card,
+.reel-card,
+.memory-card{
+  background:rgba(26,22,34,.85);
+  box-shadow:
+    0 20px 60px rgba(0,0,0,.6),
+    inset 0 0 40px rgba(196,138,154,.08);
+}
+
+/* Gentle top fade so sections feel stitched */
+section::before{
+  content:"";
+  position:absolute;
+  left:0;
+  top:-1px;
+  width:100%;
+  height:120px;
+  background:linear-gradient(
+    to top,
+    rgba(15,13,19,0),
+    rgba(15,13,19,1)
+  );
+  pointer-events:none;
+  z-index:1;
+}
+
+/* Mobile flow tightening */
+@media(max-width:768px){
+  section{
+    padding-block:4rem;
+  }
+
+  section::before,
+  section::after{
+    height:80px;
+  }
+}
+
+/* Ultra small phones */
+@media(max-width:480px){
+  section{
+    padding-block:3rem;
+  }
+}
+
+
 </style>
 </head>
 
