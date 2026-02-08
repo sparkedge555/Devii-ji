@@ -1843,7 +1843,7 @@ document.addEventListener("DOMContentLoaded",()=>{
   <div class="reels-row">
 
     <div class="reel-card">
-      <video src="yeh-raat-mastani.mp4" muted loop></video>
+      <video src="yeh-raat-mastani.mp4" loop playsinline></video>
       <span class="reel-hint">tap to play</span>
     </div>
 
@@ -1893,12 +1893,15 @@ document.addEventListener("DOMContentLoaded",()=>{
 
       // toggle current
       if(video.paused){
-        video.play();
-        card.classList.add("playing");
-      }else{
-        video.pause();
-        card.classList.remove("playing");
-      }
+  video.muted = false;
+  video.volume = 1;
+  video.play();
+  card.classList.add("playing");
+}else{
+  video.pause();
+  card.classList.remove("playing");
+}
+
 
     });
   });
