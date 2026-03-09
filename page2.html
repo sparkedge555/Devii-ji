@@ -1693,7 +1693,63 @@ section::before{
   }
 }
 
+/////
 
+
+ /* Romantic message paragraph */
+
+.p2{
+  max-width:750px;
+  margin:80px auto;
+  padding:40px 45px;
+  font-family: "Georgia", serif;
+  font-size:18px;
+  line-height:1.9;
+  color:#f2f2f2;
+  background:rgba(255,255,255,0.05);
+  border-radius:16px;
+  backdrop-filter:blur(10px);
+  box-shadow:0 15px 40px rgba(0,0,0,0.4);
+  letter-spacing:.3px;
+  text-align:center;
+  animation:fadeIn 2s ease;
+}
+
+/* Proposal / love line */
+
+.love{
+  margin-top:30px;
+  font-size:28px;
+  font-weight:500;
+  color:#ff8fa3;
+  text-align:center;
+  letter-spacing:2px;
+  text-shadow:0 0 15px rgba(255,143,163,0.6);
+  animation:heartbeat 2s infinite;
+}
+
+/* soft appearance */
+
+@keyframes fadeIn{
+  from{
+    opacity:0;
+    transform:translateY(20px);
+  }
+  to{
+    opacity:1;
+    transform:translateY(0);
+  }
+}
+
+/* heart beat effect */
+
+@keyframes heartbeat{
+  0%{transform:scale(1)}
+  25%{transform:scale(1.05)}
+  50%{transform:scale(1)}
+  75%{transform:scale(1.05)}
+  100%{transform:scale(1)}
+}
 </style>
 </head>
 
@@ -1740,7 +1796,15 @@ section::before{
   </div>
 
   <div class="unlock-message">
-    You were always meant to open this
+    You were always meant to open this.
+
+   <div class="p2">
+    Devii ji… some people enter our lives suddenly, but some feel as if they were written there long before we even understood it. Maybe you never realized it, but my heart recognized you in a very quiet way. When we met again in that temple in 2024, it didn’t feel like a coincidence to me—it felt like time reminding me of something important. Since that day, a small but constant place for you has stayed in my thoughts and in my heart. I’m not someone who promises an easy road or perfect moments, but I can promise something honest: if you ever decide to walk this journey with me, I will stand beside you and face every difficulty with you. I am ready to give my effort, my patience, and my loyalty to make something beautiful and meaningful together. But a bond becomes strong only when two hearts protect it and fight for it together. And that is why today I want to say something from the deepest and most sincere part of my heart — Khushi, Devii ji… will you choose to walk this life with me and let us turn this quiet connection into a real, beautiful story together? 💫
+    
+   </div>
+   <div class="love">
+I love you, Devii ji ❤️
+</div>
   </div>
 
   <audio id="hoverSound">
