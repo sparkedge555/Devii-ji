@@ -1696,72 +1696,78 @@ section::before{
 /////
 
 
- /* Mobile First Romantic Message */
+ //* Romantic paragraph */
 
 .p2{
-  max-width:90%;
-  margin:40px auto;
-  padding:22px 20px;
+  width:100%;
+  max-width:750px;
+  margin-left:auto;
+  margin-right:auto;
+  margin-top:60px;
+  margin-bottom:20px;
+
+  padding:35px 40px;
+
   font-family:"Georgia", serif;
-  font-size:16px;
+  font-size:18px;
   line-height:1.9;
+
   color:#f2f2f2;
   background:rgba(255,255,255,0.05);
-  border-radius:14px;
+
+  border-radius:16px;
   backdrop-filter:blur(10px);
-  box-shadow:0 10px 30px rgba(0,0,0,0.35);
+
+  box-shadow:0 15px 40px rgba(0,0,0,0.4);
+
   letter-spacing:.3px;
+
   text-align:justify;
   text-align-last:center;
+
   animation:fadeIn 2s ease;
+
+  box-sizing:border-box;
 }
 
-/* Love / proposal line */
+
+/* love line */
 
 .love{
-  margin-top:25px;
-  font-size:22px;
-  font-weight:500;
-  color:#ff8fa3;
+  width:100%;
   text-align:center;
-  letter-spacing:1.5px;
-  text-shadow:0 0 12px rgba(255,143,163,0.6);
+  margin-top:25px;
+
+  font-size:28px;
+  font-weight:500;
+
+  color:#ff8fa3;
+
+  letter-spacing:2px;
+
+  text-shadow:0 0 15px rgba(255,143,163,0.6);
+
   animation:heartbeat 2s infinite;
 }
 
-/* Tablet */
 
-@media (min-width:768px){
+/* mobile optimization */
+
+@media (max-width:600px){
 
 .p2{
-  max-width:700px;
-  padding:35px 38px;
-  font-size:18px;
+  padding:22px 20px;
+  font-size:16px;
 }
 
 .love{
-  font-size:26px;
+  font-size:22px;
 }
 
 }
 
-/* Desktop */
 
-@media (min-width:1024px){
-
-.p2{
-  max-width:750px;
-  padding:40px 45px;
-  font-size:19px;
-}
-
-.love{
-  font-size:28px;
-}
-
-}
-
-/* Soft fade animation */
+/* animations */
 
 @keyframes fadeIn{
   from{
@@ -1773,8 +1779,6 @@ section::before{
     transform:translateY(0);
   }
 }
-
-/* Heartbeat animation */
 
 @keyframes heartbeat{
   0%{transform:scale(1)}
