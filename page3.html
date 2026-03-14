@@ -194,6 +194,49 @@ padding:25px;
 
 }
 
+
+  .love-heading{
+font-size:28px;
+color:#ff2f63;
+text-align:center;
+margin:25px 0;
+position:relative;
+font-weight:600;
+letter-spacing:1px;
+}
+
+/* underline heart line */
+
+.love-heading::after{
+content:"❤";
+display:block;
+font-size:18px;
+color:#ff2f63;
+margin-top:8px;
+animation:heartbeat 1.5s infinite;
+}
+
+/* heartbeat animation */
+
+@keyframes heartbeat{
+
+0%{transform:scale(1);}
+25%{transform:scale(1.2);}
+50%{transform:scale(1);}
+75%{transform:scale(1.2);}
+100%{transform:scale(1);}
+
+}
+
+/* mobile responsive */
+
+@media(max-width:600px){
+
+.love-heading{
+font-size:22px;
+}
+
+}
 </style>
 </head>
 
@@ -334,7 +377,7 @@ I miss you a lot!! Everytime, I wish for you !!  everytime,
 
 
 
-
+<h2 class="love-heading">“Some people inspire you with words, but you inspire me simply by being who you are.”</h2>
 
 
   
