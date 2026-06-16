@@ -13,8 +13,20 @@
 
 
 
-   body { visibility: hidden !important; }
-  #password-gate { visibility: visible !important; }
+    #password-gate {
+    position: fixed;
+    inset: 0;
+    z-index: 999999;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(135deg, #1a0010, #0d0005, #1a1622);
+    font-family: 'Georgia', serif;
+  }
+  #page-content {
+    display: none;
+  }
 
 
 
@@ -380,7 +392,7 @@ a:link {
 </head>
 
 <body>
-
+<div id="page-content">
    
 <div id="password-gate" style="
   position:fixed;
@@ -578,7 +590,7 @@ a:link {
 
 <div id="note"></div>
 
-
+</div>
 
 <script>
 /* scroll reveal */
@@ -634,7 +646,7 @@ for (let i = 0; i < 20; i++) {
       var val = document.getElementById('gateInput').value;
       if(val === PASS){
         document.getElementById('password-gate').style.display = 'none';
-        document.body.style.visibility = 'visible';
+        document.getElementById('page-content').style.display = 'block';
       } else {
         document.getElementById('gateInput').value = '';
         var err = document.getElementById('gateError');
