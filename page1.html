@@ -361,11 +361,108 @@ a:link {
   border-radius: 22px;
 }
 
+
+   /*  password*/
+/* ===== PASSWORD GATE ===== */
+#password-gate {
+  position: fixed;
+  inset: 0;
+  z-index: 99999;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a0010, #0d0005, #1a1622);
+  font-family: 'Playfair Display', serif;
+  transition: opacity 0.8s ease;
+}
+
+#password-gate.hidden {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.gate-title {
+  font-size: 1.6rem;
+  color: #f3c6d6;
+  margin-bottom: 0.5rem;
+  letter-spacing: 0.05em;
+}
+
+.gate-sub {
+  font-size: 0.95rem;
+  color: rgba(243,198,214,0.6);
+  margin-bottom: 2rem;
+  font-style: italic;
+}
+
+.gate-input {
+  padding: 0.7rem 1.4rem;
+  border-radius: 30px;
+  border: 1px solid rgba(243,198,214,0.4);
+  background: rgba(255,255,255,0.07);
+  color: #f3ece7;
+  font-size: 1rem;
+  text-align: center;
+  outline: none;
+  width: 240px;
+  font-family: 'Playfair Display', serif;
+  transition: border 0.3s ease;
+}
+
+.gate-input:focus {
+  border-color: #e6b3c2;
+}
+
+.gate-btn {
+  margin-top: 1rem;
+  padding: 0.65rem 2rem;
+  border-radius: 30px;
+  border: none;
+  background: linear-gradient(135deg, #e9a6b8, #f4d3a1);
+  color: #3a2f2a;
+  font-size: 1rem;
+  cursor: pointer;
+  font-family: 'Playfair Display', serif;
+  transition: all 0.3s ease;
+}
+
+.gate-btn:hover {
+  transform: scale(1.04);
+}
+
+.gate-error {
+  margin-top: 0.8rem;
+  color: #f4a0a0;
+  font-size: 0.88rem;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gate-error.show {
+  opacity: 1;
+}
+   /*  */
 </style>
 </head>
 
 <body>
-
+   <!-- password  -->
+<!-- PASSWORD GATE -->
+<div id="password-gate">
+  <div class="gate-title">🔒 This space is private</div>
+  <div class="gate-sub">Enter the password to continue</div>
+  <input
+    class="gate-input"
+    id="gateInput"
+    type="password"
+    placeholder="password..."
+    autocomplete="off"
+  />
+  <button class="gate-btn" id="gateBtn">Open ✨</button>
+  <div class="gate-error" id="gateError">That's not it… try again 🌸</div>
+</div>
+   <!--  -->
 <button class="back-btn"> <a href="https://sparkedge555.github.io/Devii-ji/soft-hearts.html">←</a></button>
 <div class="ambient-layer"></div>
 <div class="light-particles"></div>
@@ -555,5 +652,32 @@ for (let i = 0; i < 20; i++) {
 
 <!-- ✅ LOAD ONCE -->
 
+   <!-- password -->
+<script>
+  (function () {
+    const gate    = document.getElementById('password-gate');
+    const input   = document.getElementById('gateInput');
+    const btn     = document.getElementById('gateBtn');
+    const errMsg  = document.getElementById('gateError');
+    const CORRECT = 'Deviiji@letters';
+
+    function tryUnlock() {
+      if (input.value === CORRECT) {
+        gate.classList.add('hidden');
+        setTimeout(() => gate.remove(), 900);
+      } else {
+        input.value = '';
+        errMsg.classList.add('show');
+        setTimeout(() => errMsg.classList.remove('show'), 2200);
+      }
+    }
+
+    btn.addEventListener('click', tryUnlock);
+    input.addEventListener('keydown', e => {
+      if (e.key === 'Enter') tryUnlock();
+    });
+  })();
+</script>
+   <!--  -->
 </body>
 </html>
