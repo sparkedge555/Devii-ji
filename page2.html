@@ -12,8 +12,7 @@
 
 <style>
 
-  body { visibility: hidden !important; }
-  #password-gate { visibility: visible !important; }
+
   /* =========================
    GLOBAL RESPONSIVE RESET
    ========================= */
@@ -1803,53 +1802,7 @@ section::before{
 <body>
 
   <!--  -->
-  <div id="password-gate" style="
-  position:fixed;
-  inset:0;
-  z-index:999999;
-  display:flex;
-  flex-direction:column;
-  align-items:center;
-  justify-content:center;
-  background:linear-gradient(135deg,#1a0010,#0d0005,#1a1622);
-  font-family:'Georgia',serif;
-">
-  <div style="font-size:1.6rem;color:#f3c6d6;margin-bottom:0.5rem;">🔒 Private Space</div>
-  <div style="font-size:0.95rem;color:rgba(243,198,214,0.6);margin-bottom:2rem;font-style:italic;">Enter the password to continue</div>
-  <input
-    id="gateInput"
-    type="password"
-    placeholder="password..."
-    autocomplete="off"
-    style="
-      padding:0.7rem 1.4rem;
-      border-radius:30px;
-      border:1px solid rgba(243,198,214,0.4);
-      background:rgba(255,255,255,0.07);
-      color:#f3ece7;
-      font-size:1rem;
-      text-align:center;
-      outline:none;
-      width:240px;
-    "
-  />
-  <button
-    id="gateBtn"
-    style="
-      margin-top:1rem;
-      padding:0.65rem 2rem;
-      border-radius:30px;
-      border:none;
-      background:linear-gradient(135deg,#e9a6b8,#f4d3a1);
-      color:#3a2f2a;
-      font-size:1rem;
-      cursor:pointer;
-    "
-  >Open ✨</button>
-  <div id="gateError" style="margin-top:0.8rem;color:#f4a0a0;font-size:0.88rem;display:none;">
-    That's not it… try again 🌸
-  </div>
-</div>
+
 
 
   <!--  -->
@@ -2685,29 +2638,7 @@ song.addEventListener("ended",()=>{
   
   <!-- 10th section ends -->
 
-      <script>
-  (function(){
-    var PASS = 'Deviiji@letters';
-
-    function tryUnlock(){
-      var val = document.getElementById('gateInput').value;
-      if(val === PASS){
-        document.getElementById('password-gate').style.display = 'none';
-        document.body.style.visibility = 'visible';
-      } else {
-        document.getElementById('gateInput').value = '';
-        var err = document.getElementById('gateError');
-        err.style.display = 'block';
-        setTimeout(function(){ err.style.display = 'none'; }, 2200);
-      }
-    }
-
-    document.getElementById('gateBtn').addEventListener('click', tryUnlock);
-    document.getElementById('gateInput').addEventListener('keydown', function(e){
-      if(e.key === 'Enter') tryUnlock();
-    });
-  })();
-</script>
+ 
 <!--  -->
 
 </body>
